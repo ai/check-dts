@@ -1,11 +1,16 @@
 {
   "name": "check-dts",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "Check TypeScript definitions with types tests",
+  "keywords": [
+    "typescript",
+    "types",
+    "test",
+    "check"
+  ],
   "bin": "./bin.js",
   "engines": {
-    "node": ">=13.2.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "test": "eslint . && yaspeller *.md"

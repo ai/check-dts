@@ -1,4 +1,28 @@
-# Check `.d.ts`
+# Check TypeScript Definitions
+
+Check `.d.ts` files in open source library according to types tests.
+
+```ts
+// test/index.types.ts
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void
+}
+
+lib.on<Events>('set', 'prop', 1)
+
+// test/index.errors.ts
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void,
+  'add': (c: number) => void
+}
+
+// THROW Expected 3 arguments, but got 2
+lib.on<Events>('set', 2)
+```
 
 <a href="https://evilmartians.com/?utm_source=check-dts">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
