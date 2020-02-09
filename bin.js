@@ -21,7 +21,7 @@ async function run () {
   } else if (arg === '--help') {
     showHelp()
   } else if (!arg) {
-    let result = await check()
+    let result = await check(process.cwd)
     if (!result) process.exit(1)
   } else {
     process.stderr.write(chalk.red(`Unknown argument ${ arg }`) + '\n\n')

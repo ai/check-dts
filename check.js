@@ -68,13 +68,13 @@ async function parseTest (files) {
   return expects
 }
 
-module.exports = async function check () {
+module.exports = async function check (cwd) {
   let okSpinner = ora('Scanning for files').start()
-  let ignore = { ignore: ['node_modules'], gitignore: true }
+  let opts = { cwd, ignore: ['node_modules'], gitignore: true }
   let [all, ok, fail] = await Promise.all([
-    globby('**/*.{js,ts,jsx,tsx}', ignore),
-    globby('test/**/{*.,}types.{ts,tsx}', ignore),
-    globby('test/**/{*.,}errors.{ts,tsx}', ignore)
+    globby('**/*.{js,ts,jsx,tsx}', opts),
+    globby('test/**/{*.,}types.{ts,tsx}', opts),
+    globby('test/**/{*.,}errors.{ts,tsx}', opts)
   ])
   let files = all.filter(i => !ok.includes(i) && !fail.includes(i))
 
