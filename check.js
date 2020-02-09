@@ -43,10 +43,6 @@ function push (list, file, message) {
   list[file].push(message)
 }
 
-function print (message) {
-  process.stdout.write(message + '\n')
-}
-
 async function parseTest (files) {
   let expects = []
   await Promise.all(
@@ -68,7 +64,7 @@ async function parseTest (files) {
   return expects
 }
 
-module.exports = async function check (cwd) {
+module.exports = async function check (print, cwd) {
   let okSpinner = ora('Scanning for files').start()
   let opts = { cwd, ignore: ['node_modules'], gitignore: true }
   let [all, ok, fail] = await Promise.all([

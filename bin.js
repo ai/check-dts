@@ -14,23 +14,31 @@ let showVersion = require('./show-version')
 let showHelp = require('./show-help')
 let check = require('./check')
 
+function error (message) {
+  process.stderr.write(chalk.red(message) + '\n')
+}
+
+function print (...lines) {
+  process.stdout.write(lines.join('\n') + '\n')
+}
+
 async function run () {
   let arg = process.argv[2]
   if (arg === '--version') {
-    await showVersion()
+    showVersion(print)
   } else if (arg === '--help') {
-    showHelp()
+    showHelp(print)
   } else if (!arg) {
-    let result = await check(process.cwd)
+    let result = await check(print, process.cwd())
     if (!result) process.exit(1)
   } else {
-    process.stderr.write(chalk.red(`Unknown argument ${ arg }`) + '\n\n')
-    showHelp()
+    error(`Unknown argument ${ arg }\n`)
+    showHelp(print)
     process.exit(1)
   }
 }
 
 run().catch(e => {
-  if (!e.own) process.stderr.write(chalk.red(e.stack) + '\n')
+  if (!e.own) error(e.stack)
   process.exit(1)
 })
