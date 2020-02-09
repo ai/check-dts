@@ -9,7 +9,6 @@ import lib = require('../')
 interface Events {
   'set': (a: string, b: number) => void
 }
-
 lib.on<Events>('set', 'prop', 1)
 
 // test/index.errors.ts
@@ -19,8 +18,7 @@ interface Events {
   'set': (a: string, b: number) => void,
   'add': (c: number) => void
 }
-
-// THROW Expected 3 arguments, but got 2
+// THROWS Expected 3 arguments, but got 2
 lib.on<Events>('set', 2)
 ```
 
