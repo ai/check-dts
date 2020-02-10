@@ -2,6 +2,9 @@
 
 Check `.d.ts` files in open source library according to types tests.
 
+It will be useful for JavaScript projects, which want to provide good typing
+support for TypeScript and IDE/VS Code users.
+
 ```ts
 // test/index.types.ts
 import lib = require('../')
