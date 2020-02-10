@@ -48,6 +48,17 @@
   "eslintConfig": {
     "extends": "@logux/eslint-config"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": [
+      "<rootDir>/test/fixtures"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100
+      }
+    }
+  },
   "lint-staged": {
     "*.md": "yaspeller",
     "*.js": "eslint"
