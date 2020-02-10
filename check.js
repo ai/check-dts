@@ -1,4 +1,4 @@
-let { dirname, basename, join, relative } = require('path')
+let { dirname, basename, join, relative, sep } = require('path')
 let { promisify } = require('util')
 let { Worker } = require('worker_threads')
 let lineColumn = require('line-column')
@@ -25,7 +25,7 @@ function checkFiles (files) {
   })
 }
 
-function text (error) {
+function getText (error) {
   if (typeof error.messageText === 'object') {
     return error.messageText.messageText
   } else {
@@ -37,11 +37,6 @@ function formatName (cwd, file) {
   return chalk.gray(
     relative(cwd, file).replace(basename(file), i => chalk.white.bold(i))
   )
-}
-
-function push (list, file, message) {
-  if (!list[file]) list[file] = []
-  list[file].push(message)
 }
 
 async function parseTest (files) {
@@ -66,13 +61,9 @@ async function parseTest (files) {
 }
 
 module.exports = async function check (stdout, cwd, print) {
-  let okSpinner = ora({ stream: stdout }).start('Scanning for files')
+  let spinner = ora({ stream: stdout }).start('Check types')
   let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
-  let [all, ok, fail] = await Promise.all([
-    globby('**/*.{js,ts,jsx,tsx}', opts),
-    globby('test/**/{*.,}types.{ts,tsx}', opts),
-    globby('test/**/{*.,}errors.{ts,tsx}', opts)
-  ])
+  let all = await globby('**/*.{js,ts,jsx,tsx}', opts)
 
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
@@ -83,60 +74,48 @@ module.exports = async function check (stdout, cwd, print) {
     throw err
   }
 
-  let files = all.filter(i => !ok.includes(i) && !fail.includes(i))
+  let tests = all.filter(i => i.includes(sep + 'test' + sep))
+  let failTests = tests.filter(i => /\.?errors.tsx?$/.test(i))
 
-  files.push(join(TS_DIR, 'lib.dom.d.ts'))
-  files.push(join(TS_DIR, 'lib.es2018.d.ts'))
+  all.push(join(TS_DIR, 'lib.dom.d.ts'))
+  all.push(join(TS_DIR, 'lib.es2018.d.ts'))
 
-  okSpinner.text = 'Project types and positive tests'
-  let errors = await checkFiles(files.concat(ok))
-  if (errors.length > 0) {
-    okSpinner.fail('Types failed')
-    for (let i of errors) {
-      let { line, col } = lineColumn(i.file.text).fromIndex(i.start)
-      print(
-        chalk.red(relative(cwd, i.file.fileName)) + ':' +
-        chalk.yellow(line) + ':' +
-        chalk.yellow(col) + ' ' +
-        chalk.gray(`TS${ i.code }`) + ' ' +
-        text(i)
-      )
-    }
-    return false
-  }
+  let expects = await parseTest(failTests)
+  let errors = await checkFiles(all)
 
-  okSpinner.succeed()
-  for (let i of ok) {
-    print(chalk.green('✔ ') + formatName(cwd, i))
-  }
-
-  let failSpinner = ora({ stream: stdout }).start('Parsing THROWS statements')
-  let expects = await parseTest(fail)
-
-  failSpinner.text = 'Negative tests'
-  let found = await checkFiles(files.concat(fail))
   let bad = { }
-  for (let i of found) {
+  function push (file, message) {
+    if (!bad[file]) bad[file] = []
+    bad[file].push(message)
+  }
+
+  for (let i of errors) {
     let { line, col } = lineColumn(i.file.text).fromIndex(i.start)
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
     })
-    if (!expect) {
+    let pos = r(`${ line }:${ col }:`)
+    let text = getText(i)
+    if (!failTests.includes(i.file.fileName)) {
       push(
-        bad,
         i.file.fileName,
-        '  ' + b(r(line + ':' + col + ':') + ' Unexpected error\n') +
-        '  ' + r(text(i))
+        '  ' + b(pos + ' Type error ' + chalk.gray(`TS${ i.code }`) + '\n') +
+        '  ' + r(text)
+      )
+    } else if (!expect) {
+      push(
+        i.file.fileName,
+        '  ' + b(pos + ' Unexpected error\n') +
+        '  ' + r(text)
       )
     } else {
       expect.used = true
-      if (!text(i).includes(expect.pattern)) {
+      if (!text.includes(expect.pattern)) {
         push(
-          bad,
           i.file.fileName,
-          '  ' + b(r(line + ':' + col + ':') + ' Wrong error\n') +
+          '  ' + b(pos + ' Wrong error\n') +
           '  Expected: ' + g(expect.pattern) + '\n' +
-          '  Got: ' + r(text(i))
+          '  Got: ' + r(text)
         )
       }
     }
@@ -144,32 +123,35 @@ module.exports = async function check (stdout, cwd, print) {
   let unused = expects.filter(i => !i.used)
   for (let i of unused) {
     push(
-      bad,
       i.fileName,
-      '  ' + b(r(i.line + ':' + i.col + ':') + ' Error was not found\n') +
+      '  ' + b(r(`${ i.line }:${ i.col }:`) + ' Error was not found\n') +
       '  ' + r(i.pattern)
     )
   }
 
   let failed = Object.keys(bad).length > 0
   if (failed) {
-    failSpinner.fail()
+    spinner.fail()
   } else {
-    failSpinner.succeed()
+    spinner.succeed()
   }
-  for (let file of fail) {
-    if (bad[file]) {
-      print(r('✖ ') + formatName(cwd, file) + '\n')
-    } else if (!failed) {
-      print(g('✔ ') + formatName(cwd, file))
+  if (!failed) {
+    for (let i of tests) {
+      print(chalk.green('✔ ') + formatName(cwd, i))
     }
-    let messages = (bad[file] || []).sort((msg1, msg2) => {
-      let line1 = parseInt(msg1.match(/(\d+):/)[1])
-      let line2 = parseInt(msg2.match(/(\d+):/)[1])
-      return line1 - line2
-    })
-    for (let i of messages) {
-      print(i + '\n')
+  } else {
+    for (let file of all) {
+      if (bad[file]) {
+        print(r('✖ ') + formatName(cwd, file) + '\n')
+      }
+      let messages = (bad[file] || []).sort((msg1, msg2) => {
+        let line1 = parseInt(msg1.match(/(\d+):/)[1])
+        let line2 = parseInt(msg2.match(/(\d+):/)[1])
+        return line1 - line2
+      })
+      for (let i of messages) {
+        print(i + '\n')
+      }
     }
   }
   return !failed

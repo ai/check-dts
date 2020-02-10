@@ -1,12 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`checks both tests 1`] = `
+"- Check types
+[31m✖[39m Check types
+[31m✖ [39m[90mtest/[37m[1ma.types.ts[22m[39m[90m[39m
+
+  [1m[31m3:10:[39m Type error [90mTS2345[39m[22m
+[1m[22m  [31mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+
+[31m✖ [39m[90mtest/[37m[1mb.errors.ts[22m[39m[90m[39m
+
+  [1m[31m9:7:[39m Wrong error[22m
+[1m[22m  Expected: [32mWrong[39m
+  Got: [31mExpected 3 arguments, but got 2.[39m
+
+  [1m[31m11:1:[39m Error was not found[22m
+[1m[22m  [31mMissed[39m
+
+  [1m[31m12:20:[39m Unexpected error[22m
+[1m[22m  [31mExpected 1 arguments, but got 2.[39m
+
+"
+`;
+
 exports[`checks negative tests 1`] = `
-"- Scanning for files
-[32m✔[39m Project types and positive tests
-[32m✔ [39m[90mtest/[37m[1ma.types.ts[22m[39m[90m[39m
-[32m✔ [39m[90mtest/[37m[1mb.types.ts[22m[39m[90m[39m
-- Parsing THROWS statements
-[31m✖[39m Negative tests
+"- Check types
+[31m✖[39m Check types
 [31m✖ [39m[90mtest/[37m[1mb.errors.ts[22m[39m[90m[39m
 
   [1m[31m9:7:[39m Wrong error[22m
@@ -23,18 +42,23 @@ exports[`checks negative tests 1`] = `
 `;
 
 exports[`checks positive tests 1`] = `
-"- Scanning for files
-[31m✖[39m Types failed
-[31mtest/types.ts[39m:[33m3[39m:[33m14[39m [90mTS2345[39m Argument of type '\\"1\\"' is not assignable to parameter of type 'number'.
+"- Check types
+[31m✖[39m Check types
+[31m✖ [39m[90mtest/[37m[1mtypes.ts[22m[39m[90m[39m
+
+  [1m[31m3:14:[39m Type error [90mTS2345[39m[22m
+[1m[22m  [31mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+
 "
 `;
 
 exports[`supports simple cases 1`] = `
-"- Scanning for files
-[32m✔[39m Project types and positive tests
-[32m✔ [39m[90mtest/[37m[1mtypes.ts[22m[39m[90m[39m
-- Parsing THROWS statements
-[32m✔[39m Negative tests
+"- Check types
+[32m✔[39m Check types
+[32m✔ [39m[90m[37m[1mindex.d.ts[22m[39m[90m[39m
+[32m✔ [39m[90m[37m[1mindex.js[22m[39m[90m[39m
 [32m✔ [39m[90mtest/[37m[1merrors.ts[22m[39m[90m[39m
+[32m✔ [39m[90mtest/[37m[1mindex.test.js[22m[39m[90m[39m
+[32m✔ [39m[90mtest/[37m[1mtypes.ts[22m[39m[90m[39m
 "
 `;

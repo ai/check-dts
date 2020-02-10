@@ -43,6 +43,10 @@ it('checks negative tests', async () => {
   expect(await bad('negative')).toMatchSnapshot()
 })
 
+it('checks both tests', async () => {
+  expect(await bad('both')).toMatchSnapshot()
+})
+
 it('warns about empty project', async () => {
   let error
   try {
