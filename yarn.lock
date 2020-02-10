@@ -917,7 +917,7 @@ ci-info@^2.0.0:
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-2.0.0.tgz#67a9e964be31a51e15e5010d58e6f12834002f46"
   integrity sha512-5tK7EtrZ0N+OLFMthtqOj4fI2Jeb88C4CAZPu25LDVUgXJ0A3Js4PMGqrn0JU1W0Mh1/Z8wZzYPxqUrXeBboCQ==
 
-ci-job-number@^0.3.1:
+ci-job-number@^0.3.0, ci-job-number@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/ci-job-number/-/ci-job-number-0.3.1.tgz#4354e45bb3ed5a7301f09358d2876d510d4a570e"
   integrity sha512-OfY2Cg+mTqZz7lWOxONGbAXVZNNWPSiyGtOpAjYHEVTXIae8lGCOg3cDfJpPh8zcl+2CqItOsxbvH6ueV+QOmw==
@@ -1399,6 +1399,13 @@ eslint-ast-utils@^1.1.0:
   dependencies:
     lodash.get "^4.4.2"
     lodash.zip "^4.2.0"
+
+eslint-ci@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-ci/-/eslint-ci-1.0.0.tgz#6bcb238c45d2bf522fad50ad190bc00a206fe2df"
+  integrity sha512-8Itb/739gpX11nqvWg6kkpge7NwS1o+SkhfFAItfvH9/i5IoY6NLKKKzIagHakT2WmMdnq4HfcymYh/0NGvAVA==
+  dependencies:
+    ci-job-number "^0.3.0"
 
 eslint-config-standard@^14.1.0:
   version "14.1.0"
@@ -5154,7 +5161,15 @@ yargs@^15.0.0:
     y18n "^4.0.0"
     yargs-parser "^16.1.0"
 
-yaspeller@^6.0.2:
+yaspeller-ci@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/yaspeller-ci/-/yaspeller-ci-1.0.1.tgz#4cf8c231c1ecbc8eabb7f8f4084e7deb3cca0d3c"
+  integrity sha512-9bqag0PMXm0RnHUnITfkvEOueUyyG3NP/q8TOmS9UI8tvmTP7ima9/Z2vte2hf6yJxL2Y8nxv6Tkc78gKERJ/w==
+  dependencies:
+    ci-job-number "^0.3.0"
+    yaspeller ">=5.1.0"
+
+yaspeller@>=5.1.0, yaspeller@^6.0.2:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/yaspeller/-/yaspeller-6.0.2.tgz#a540e703667a4fd8c71506e1846c71623d8952ff"
   integrity sha512-QUMQXLPYd8j8QaBSFJNX7cMlL5yys+/pDULEsNPozcVbKYtjwMRYonn4pQfxsMa/dSZ6YQt4ycxX1d3zJ78GzA==

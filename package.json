@@ -1,7 +1,7 @@
 {
   "name": "check-dts",
   "version": "0.0.0",
-  "description": "Check TypeScript definitions with types tests",
+  "description": "Unit tests for .d.ts TypeScript definitions",
   "keywords": [
     "typescript",
     "types",
@@ -13,7 +13,7 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "test": "jest --coverage && eslint . && yaspeller *.md"
+    "test": "jest --coverage && eslint-ci . && yaspeller-ci *.md"
   },
   "dependencies": {
     "chalk": "^3.0.0",
@@ -30,6 +30,7 @@
     "@logux/eslint-config": "^36.0.0",
     "clean-publish": "^1.1.4",
     "eslint": "^6.8.0",
+    "eslint-ci": "^1.0.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jest": "^23.7.0",
@@ -43,7 +44,8 @@
     "jest": "^25.1.0",
     "lint-staged": "^10.0.2",
     "print-snapshots": "^0.1.2",
-    "yaspeller": "^6.0.2"
+    "yaspeller": "^6.0.2",
+    "yaspeller-ci": "^1.0.1"
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config"
