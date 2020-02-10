@@ -75,7 +75,10 @@
       " \\(by [^)]+\\)."
     ],
     "dictionary": [
-      "Versioning"
+      "Versioning",
+      "autocompletion",
+      "generics",
+      "Storeon"
     ]
   }
 }

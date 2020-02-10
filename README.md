@@ -1,9 +1,13 @@
 # Check TypeScript Definitions
 
-Check `.d.ts` files in open source library according to types tests.
+Unit tests for `.d.ts` TypeScript definitions in your JavaScript
+open source library.
 
-It will be useful for JavaScript projects, which want to provide good typing
-support for TypeScript and IDE/VS Code users.
+It is useful for non-TypeScript project, which want to provide good typing
+support for TypeScript users and good autocompletion for IDE and text editors.
+
+It became especially useful if you have complex types with generics, like
+we have in [Storeon](https://github.com/storeon/storeon#typescript).
 
 ```ts
 // test/index.types.ts
