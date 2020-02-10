@@ -14,6 +14,7 @@ const WORKER = join(__dirname, 'worker.js')
 const PREFIX = '// THROWS '
 
 let r = chalk.red
+let b = chalk.bold
 let g = chalk.green
 
 function checkFiles (files) {
@@ -124,7 +125,7 @@ module.exports = async function check (stdout, cwd, print) {
       push(
         bad,
         i.file.fileName,
-        '  ' + r.bold(line + ':' + col + ':') + ' Unexpected error\n' +
+        '  ' + b(r(line + ':' + col + ':') + ' Unexpected error\n') +
         '  ' + r(text(i))
       )
     } else {
@@ -133,7 +134,7 @@ module.exports = async function check (stdout, cwd, print) {
         push(
           bad,
           i.file.fileName,
-          '  ' + r.bold(line + ':' + col + ':') + ' Wrong error\n' +
+          '  ' + b(r(line + ':' + col + ':') + ' Wrong error\n') +
           '  Expected: ' + g(expect.pattern) + '\n' +
           '  Got: ' + r(text(i))
         )
@@ -145,7 +146,7 @@ module.exports = async function check (stdout, cwd, print) {
     push(
       bad,
       i.fileName,
-      '  ' + r.bold(i.line + ':' + i.col + ':') + ' Error was not found\n' +
+      '  ' + b(r(i.line + ':' + i.col + ':') + ' Error was not found\n') +
       '  ' + r(i.pattern)
     )
   }
@@ -158,12 +159,17 @@ module.exports = async function check (stdout, cwd, print) {
   }
   for (let file of fail) {
     if (bad[file]) {
-      print(r('✖ ') + formatName(cwd, file))
+      print(r('✖ ') + formatName(cwd, file) + '\n')
     } else if (!failed) {
       print(g('✔ ') + formatName(cwd, file))
     }
-    for (let i of bad[file] || []) {
-      print(i)
+    let messages = (bad[file] || []).sort((msg1, msg2) => {
+      let line1 = parseInt(msg1.match(/(\d+):/)[1])
+      let line2 = parseInt(msg2.match(/(\d+):/)[1])
+      return line1 - line2
+    })
+    for (let i of messages) {
+      print(i + '\n')
     }
   }
   return !failed
