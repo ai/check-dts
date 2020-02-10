@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`prints version 1`] = `
+"check-dts [1m0.0.0[22m
+"
+`;

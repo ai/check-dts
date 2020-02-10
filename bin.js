@@ -39,6 +39,6 @@ async function run () {
 }
 
 run().catch(e => {
-  if (!e.own) error(e.stack)
+  error(e.stack)
   process.exit(1)
 })
