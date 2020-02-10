@@ -29,7 +29,7 @@ async function run () {
   } else if (arg === '--help') {
     showHelp(print)
   } else if (!arg) {
-    let result = await check(print, process.cwd())
+    let result = await check(process.stdout, process.cwd(), print)
     if (!result) process.exit(1)
   } else {
     error(`Unknown argument ${ arg }\n`)
@@ -39,6 +39,10 @@ async function run () {
 }
 
 run().catch(e => {
-  error(e.stack)
+  if (e.own) {
+    error(e.message)
+  } else {
+    error(e.stack)
+  }
   process.exit(1)
 })

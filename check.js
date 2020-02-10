@@ -1,4 +1,4 @@
-let { dirname, basename, join } = require('path')
+let { dirname, basename, join, relative } = require('path')
 let { promisify } = require('util')
 let { Worker } = require('worker_threads')
 let lineColumn = require('line-column')
@@ -32,9 +32,9 @@ function text (error) {
   }
 }
 
-function formatName (fileName) {
+function formatName (cwd, file) {
   return chalk.gray(
-    fileName.replace(basename(fileName), i => chalk.white.bold(i))
+    relative(cwd, file).replace(basename(file), i => chalk.white.bold(i))
   )
 }
 
@@ -64,14 +64,24 @@ async function parseTest (files) {
   return expects
 }
 
-module.exports = async function check (print, cwd) {
-  let okSpinner = ora('Scanning for files').start()
-  let opts = { cwd, ignore: ['node_modules'], gitignore: true }
+module.exports = async function check (stdout, cwd, print) {
+  let okSpinner = ora({ stream: stdout }).start('Scanning for files')
+  let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
   let [all, ok, fail] = await Promise.all([
     globby('**/*.{js,ts,jsx,tsx}', opts),
     globby('test/**/{*.,}types.{ts,tsx}', opts),
     globby('test/**/{*.,}errors.{ts,tsx}', opts)
   ])
+
+  if (!all.some(i => /\.tsx?$/.test(i))) {
+    let err = new Error(
+      'TypeScript files was not found. ' +
+      'Create .d.ts files and test/types.ts and test/errors.ts.'
+    )
+    err.own = true
+    throw err
+  }
+
   let files = all.filter(i => !ok.includes(i) && !fail.includes(i))
 
   files.push(join(TS_DIR, 'lib.dom.d.ts'))
@@ -80,12 +90,11 @@ module.exports = async function check (print, cwd) {
   okSpinner.text = 'Project types and positive tests'
   let errors = await checkFiles(files.concat(ok))
   if (errors.length > 0) {
-    let inTest = errors.every(i => i.file.fileName.endsWith('types.ts'))
-    okSpinner.fail(inTest ? 'Possitive tests failed' : 'Types failed')
+    okSpinner.fail('Types failed')
     for (let i of errors) {
       let { line, col } = lineColumn(i.file.text).fromIndex(i.start)
       print(
-        chalk.red(i.file.fileName) + ':' +
+        chalk.red(relative(cwd, i.file.fileName)) + ':' +
         chalk.yellow(line) + ':' +
         chalk.yellow(col) + ' ' +
         chalk.gray(`TS${ i.code }`) + ' ' +
@@ -97,10 +106,10 @@ module.exports = async function check (print, cwd) {
 
   okSpinner.succeed()
   for (let i of ok) {
-    print(chalk.green('✔ ') + formatName(i))
+    print(chalk.green('✔ ') + formatName(cwd, i))
   }
 
-  let failSpinner = ora('Parsing THROWS statements').start()
+  let failSpinner = ora({ stream: stdout }).start('Parsing THROWS statements')
   let expects = await parseTest(fail)
 
   failSpinner.text = 'Negative tests'
@@ -149,9 +158,9 @@ module.exports = async function check (print, cwd) {
   }
   for (let file of fail) {
     if (bad[file]) {
-      print(r('✖ ') + formatName(file))
+      print(r('✖ ') + formatName(cwd, file))
     } else if (!failed) {
-      print(g('✔ ') + formatName(file))
+      print(g('✔ ') + formatName(cwd, file))
     }
     for (let i of bad[file] || []) {
       print(i)
