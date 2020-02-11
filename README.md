@@ -31,7 +31,8 @@ lib.on<Events>('set', 2)
 
 <p align="center">
   <img src="./screenshot.png" alt="Print Snapshots example" width="585">
-
+</p>
+<p align="center">
   <a href="https://evilmartians.com/?utm_source=check-dts">
     <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
         alt="Sponsored by Evil Martians" width="236" height="54">
