@@ -80,7 +80,9 @@
       "Versioning",
       "autocompletion",
       "generics",
-      "Storeon"
+      "Storeon",
+      "JS",
+      "CI"
     ]
   }
 }
