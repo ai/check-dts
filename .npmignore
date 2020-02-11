@@ -6,3 +6,5 @@ yarn.lock
 .travis.yml
 coverage/
 tests/
+
+screenshot.png
