@@ -10,17 +10,7 @@ It became especially useful if you have complex types with generics, like
 we have in [Storeon](https://github.com/storeon/storeon#typescript).
 
 ```ts
-// test/index.types.ts
-import lib = require('../')
-
-interface Events {
-  'set': (a: string, b: number) => void
-}
-lib.on<Events>('set', 'prop', 1)
-```
-
-```ts
-// test/index.errors.ts
+// Negative test: test/index.errors.ts
 import lib = require('../')
 
 interface Events {
@@ -28,6 +18,16 @@ interface Events {
 }
 // THROWS Expected 3 arguments, but got 2
 lib.on<Events>('set', 2)
+```
+
+```ts
+// Positive test: test/index.types.ts
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void
+}
+lib.on<Events>('set', 'prop', 1)
 ```
 
 <img src="./screenshot.png" alt="Print Snapshots example" width="585">
