@@ -17,13 +17,14 @@ interface Events {
   'set': (a: string, b: number) => void
 }
 lib.on<Events>('set', 'prop', 1)
+```
 
+```ts
 // test/index.errors.ts
 import lib = require('../')
 
 interface Events {
-  'set': (a: string, b: number) => void,
-  'add': (c: number) => void
+  'set': (a: string, b: number) => void
 }
 // THROWS Expected 3 arguments, but got 2
 lib.on<Events>('set', 2)
