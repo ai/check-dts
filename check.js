@@ -75,7 +75,8 @@ module.exports = async function check (stdout, cwd, print) {
   }
 
   let tests = all.filter(i => i.includes(sep + 'test' + sep))
-  let failTests = tests.filter(i => /\.?errors.tsx?$/.test(i))
+  let typeTests = tests.filter(i => /\.?(errors|types)\.tsx?/.test(i))
+  let failTests = typeTests.filter(i => /\.?errors\.tsx?$/.test(i))
 
   all.push(join(TS_DIR, 'lib.dom.d.ts'))
   all.push(join(TS_DIR, 'lib.es2018.d.ts'))
@@ -136,7 +137,7 @@ module.exports = async function check (stdout, cwd, print) {
     spinner.succeed()
   }
   if (!failed) {
-    for (let i of tests) {
+    for (let i of typeTests) {
       print(chalk.green('✔ ') + formatName(cwd, i))
     }
   } else {

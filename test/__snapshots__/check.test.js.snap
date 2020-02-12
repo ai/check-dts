@@ -55,10 +55,7 @@ exports[`checks positive tests 1`] = `
 exports[`supports simple cases 1`] = `
 "- Check types
 [32m✔[39m Check types
-[32m✔ [39m[90m[37m[1mindex.d.ts[22m[39m[90m[39m
-[32m✔ [39m[90m[37m[1mindex.js[22m[39m[90m[39m
 [32m✔ [39m[90mtest/[37m[1merrors.ts[22m[39m[90m[39m
-[32m✔ [39m[90mtest/[37m[1mindex.test.js[22m[39m[90m[39m
 [32m✔ [39m[90mtest/[37m[1mtypes.ts[22m[39m[90m[39m
 "
 `;
