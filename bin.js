@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-worker
 
 let ciJobNumber = require('ci-job-number')
 let chalk = require('chalk')
