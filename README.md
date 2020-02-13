@@ -7,7 +7,7 @@ It is useful for non-TypeScript project, which want to provide good typing
 support for TypeScript users and good autocompletion for IDE and text editors.
 
 It became especially useful if you have complex types with generics, like
-we have in [Storeon](https://github.com/storeon/storeon#typescript).
+we have in [Nano Events] or [Storeon].
 
 ```ts
 // Negative test: test/index.errors.ts
@@ -30,6 +30,9 @@ interface Events {
 lib.on<Events>('set', 'prop', 1)
 ```
 
+[Nano Events]: https://github.com/ai/nanoevents/#typescript
+[Storeon]: https://github.com/storeon/storeon#typescript
+
 <img src="./screenshot.png" alt="Print Snapshots example" width="585">
 
 <a href="https://evilmartians.com/?utm_source=check-dts">
@@ -40,6 +43,8 @@ lib.on<Events>('set', 'prop', 1)
 ## Usage
 
 1. Add `.d.ts` files with TypeScript definitions for your JS library.
+   You can check example in
+   [Nano Events](https://github.com/ai/nanoevents/blob/master/index.d.ts).
 2. Install `check-dts`:
 
    ```sh
