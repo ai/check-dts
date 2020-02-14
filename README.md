@@ -11,7 +11,7 @@ we have in [Nano Events] or [Storeon].
 
 ```ts
 // Negative test: test/index.errors.ts
-import lib = require('../')
+const lib = require('../')
 
 interface Events {
   'set': (a: string, b: number) => void
@@ -22,7 +22,7 @@ lib.on<Events>('set', 2)
 
 ```ts
 // Positive test: test/index.types.ts
-import lib = require('../')
+const lib = require('../')
 
 interface Events {
   'set': (a: string, b: number) => void
