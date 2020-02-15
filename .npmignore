@@ -5,6 +5,6 @@ yarn.lock
 .editorconfig
 .travis.yml
 coverage/
-tests/
+test/
 
 screenshot.png
