@@ -48,7 +48,10 @@
     "yaspeller-ci": "^1.0.1"
   },
   "eslintConfig": {
-    "extends": "@logux/eslint-config"
+    "extends": "@logux/eslint-config",
+    "rules": {
+      "global-require": "off"
+    }
   },
   "jest": {
     "testEnvironment": "node",

@@ -1,6 +1,5 @@
 let { dirname, basename, join, relative, sep } = require('path')
 let { promisify } = require('util')
-let { Worker } = require('worker_threads')
 let lineColumn = require('line-column')
 let globby = require('globby')
 let chalk = require('chalk')
@@ -13,16 +12,27 @@ const TS_DIR = dirname(require.resolve('typescript'))
 const WORKER = join(__dirname, 'worker.js')
 const PREFIX = '// THROWS '
 
+let Worker, createProgram
+try {
+  Worker = require('worker_threads').Worker
+} catch {
+  createProgram = require('./create-program')
+}
+
 let r = chalk.red
 let b = chalk.bold
 let g = chalk.green
 
 function checkFiles (files) {
-  return new Promise((resolve, reject) => {
-    let worker = new Worker(WORKER, { workerData: files })
-    worker.on('message', resolve)
-    worker.on('error', reject)
-  })
+  if (Worker) {
+    return new Promise((resolve, reject) => {
+      let worker = new Worker(WORKER, { workerData: files })
+      worker.on('message', resolve)
+      worker.on('error', reject)
+    })
+  } else {
+    return createProgram(files)
+  }
 }
 
 function getText (error) {
