@@ -61,6 +61,6 @@ lib.on<Events>('set', 'prop', 1)
    ```diff
      "scripts": {
    -   "test": "jest && eslint ."
-   +   "test": "jest && eslint . && check-dts
+   +   "test": "jest && eslint . && check-dts"
      }
    ```

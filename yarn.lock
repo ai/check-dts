@@ -2563,6 +2563,13 @@ jest-changed-files@^25.1.0:
     execa "^3.2.0"
     throat "^5.0.0"
 
+jest-ci@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jest-ci/-/jest-ci-0.1.0.tgz#ddf03bfc17f250dd8b498583084f4cc1aecae33b"
+  integrity sha512-LBIUbv0f477GHIKDJGXNSUzZv9Eo8+gTRKwTDzoUP+/IGrlfCgr3HshQSUm4bBw50nDkhMpu/unpuChHTrnghQ==
+  dependencies:
+    ci-job-number "^0.3.1"
+
 jest-cli@^25.1.0:
   version "25.1.0"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-25.1.0.tgz#75f0b09cf6c4f39360906bf78d580be1048e4372"
