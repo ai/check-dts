@@ -156,11 +156,12 @@ module.exports = async function check (stdout, cwd, print) {
         print(i + '\n')
       }
     }
+    return false
   } else {
     spinner.succeed()
     for (let i of typeTests) {
       print(chalk.green('✔ ') + formatName(cwd, i))
     }
+    return true
   }
-  return !failed
 }
