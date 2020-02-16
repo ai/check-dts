@@ -143,14 +143,6 @@ module.exports = async function check (stdout, cwd, print) {
   let failed = Object.keys(bad).length > 0
   if (failed) {
     spinner.fail()
-  } else {
-    spinner.succeed()
-  }
-  if (!failed) {
-    for (let i of typeTests) {
-      print(chalk.green('✔ ') + formatName(cwd, i))
-    }
-  } else {
     for (let file of all) {
       if (bad[file]) {
         print(r('✖ ') + formatName(cwd, file) + '\n')
@@ -163,6 +155,11 @@ module.exports = async function check (stdout, cwd, print) {
       for (let i of messages) {
         print(i + '\n')
       }
+    }
+  } else {
+    spinner.succeed()
+    for (let i of typeTests) {
+      print(chalk.green('✔ ') + formatName(cwd, i))
     }
   }
   return !failed
