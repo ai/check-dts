@@ -23,6 +23,14 @@ exports[`checks both tests 1`] = `
 "
 `;
 
+exports[`checks mixed tests 1`] = `
+"- Check types
+[32m✔[39m Check types
+[32m✔ [39m[90ma/[37m[1merrors.ts[22m[39m[90m[39m
+[32m✔ [39m[90ma/[37m[1mtypes.ts[22m[39m[90m[39m
+"
+`;
+
 exports[`checks negative tests 1`] = `
 "- Check types
 [31m✖[39m Check types
