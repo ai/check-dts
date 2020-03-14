@@ -1,4 +1,4 @@
-let { dirname, basename, join, relative, sep } = require('path')
+let { dirname, basename, join, relative } = require('path')
 let { promisify } = require('util')
 let lineColumn = require('line-column')
 let globby = require('globby')
@@ -84,9 +84,8 @@ module.exports = async function check (stdout, cwd, print) {
     throw err
   }
 
-  let tests = all.filter(i => i.includes(sep + 'test' + sep))
-  let typeTests = tests.filter(i => /\.?(errors|types)\.tsx?/.test(i))
-  let failTests = typeTests.filter(i => /\.?errors\.tsx?$/.test(i))
+  let typeTests = all.filter(i => /\.?(errors|types)\.tsx?/.test(i))
+  let failTests = all.filter(i => /\.?errors\.tsx?$/.test(i))
 
   all.push(join(TS_DIR, 'lib.dom.d.ts'))
   all.push(join(TS_DIR, 'lib.es2018.d.ts'))
