@@ -15,8 +15,8 @@ typed.emit('tick', 1)
 typed.emit('unknown')
 
 typed.events = {
-  // THROWS is not assignable to type
   'set': [
+    // THROWS is not assignable to type
     (b: number) => b
   ]
 }
