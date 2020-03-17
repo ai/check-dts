@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.4
+* Show errors from `node_modules`.
+
 ## 0.1.3
 * Allow to put type tests outside of `test/`.
 
