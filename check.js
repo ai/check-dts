@@ -142,10 +142,8 @@ module.exports = async function check (stdout, cwd, print) {
   let failed = Object.keys(bad).length > 0
   if (failed) {
     spinner.fail()
-    for (let file of all) {
-      if (bad[file]) {
-        print(r('✖ ') + formatName(cwd, file) + '\n')
-      }
+    for (let file in bad) {
+      print(r('✖ ') + formatName(cwd, file) + '\n')
       let messages = (bad[file] || []).sort((msg1, msg2) => {
         let line1 = parseInt(msg1.match(/(\d+):/)[1])
         let line2 = parseInt(msg2.match(/(\d+):/)[1])
