@@ -8,7 +8,6 @@ module.exports = function createProgram (files) {
     noImplicitReturns: true,
     moduleResolution: ts.ModuleResolutionKind.NodeJs,
     noUnusedLocals: true,
-    noImplicitAny: false,
     stripInternal: true,
     allowJs: true,
     module: 'esnext',
