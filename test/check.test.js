@@ -51,6 +51,10 @@ it('checks mixed tests', async () => {
   expect(await good('mixed')).toMatchSnapshot()
 })
 
+it('loads custom tsconfig.json', async () => {
+  expect(await good('tsconfig')).toMatchSnapshot()
+})
+
 it('warns about empty project', async () => {
   let error
   try {

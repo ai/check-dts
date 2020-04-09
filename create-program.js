@@ -1,6 +1,6 @@
 let ts = require('typescript')
 
-let defaultCompilerOptions = {
+const DEFAULT = {
   allowSyntheticDefaultImports: true,
   strictFunctionTypes: false,
   noUnusedParameters: true,
@@ -15,10 +15,6 @@ let defaultCompilerOptions = {
   jsx: 'react'
 }
 
-module.exports = function createProgram (files, compilerOptions) {
-  if (!compilerOptions) {
-    compilerOptions = defaultCompilerOptions
-  }
-
+module.exports = function createProgram (files, compilerOptions = DEFAULT) {
   return ts.getPreEmitDiagnostics(ts.createProgram(files, compilerOptions))
 }

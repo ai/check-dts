@@ -9,7 +9,6 @@ let fs = require('fs')
 let readFile = promisify(fs.readFile)
 
 const TS_DIR = dirname(require.resolve('typescript'))
-const TS_CONFIG_FILE = './tsconfig.json'
 const WORKER = join(__dirname, 'worker.js')
 const PREFIX = '// THROWS '
 
@@ -76,10 +75,11 @@ async function parseTest (files) {
 module.exports = async function check (stdout, cwd, print) {
   let spinner = ora({ stream: stdout }).start('Check types')
 
-  let compilerOptions = null
-  if (fs.existsSync(TS_CONFIG_FILE)) {
-    let tsConfig = JSON.parse(await readFile(TS_CONFIG_FILE))
-    compilerOptions = tsConfig.compilerOptions || null
+  let compilerOptions
+  let tsconfigPath = join(cwd, 'tsconfig.json')
+  if (fs.existsSync(tsconfigPath)) {
+    let tsconfig = JSON.parse(await readFile(tsconfigPath))
+    compilerOptions = tsconfig.compilerOptions
   }
 
   let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
