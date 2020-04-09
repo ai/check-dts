@@ -9,6 +9,7 @@ let fs = require('fs')
 let readFile = promisify(fs.readFile)
 
 const TS_DIR = dirname(require.resolve('typescript'))
+const TS_CONFIG_FILE = './tsconfig.json'
 const WORKER = join(__dirname, 'worker.js')
 const PREFIX = '// THROWS '
 
@@ -23,15 +24,17 @@ let r = chalk.red
 let b = chalk.bold
 let g = chalk.green
 
-function checkFiles (files) {
+function checkFiles (files, compilerOptions) {
   if (Worker) {
     return new Promise((resolve, reject) => {
-      let worker = new Worker(WORKER, { workerData: files })
+      let worker = new Worker(WORKER, {
+        workerData: { files, compilerOptions }
+      })
       worker.on('message', resolve)
       worker.on('error', reject)
     })
   } else {
-    return createProgram(files)
+    return createProgram(files, compilerOptions)
   }
 }
 
@@ -72,6 +75,13 @@ async function parseTest (files) {
 
 module.exports = async function check (stdout, cwd, print) {
   let spinner = ora({ stream: stdout }).start('Check types')
+
+  let compilerOptions = null
+  if (fs.existsSync(TS_CONFIG_FILE)) {
+    let tsConfig = JSON.parse(await readFile(TS_CONFIG_FILE))
+    compilerOptions = tsConfig.compilerOptions || null
+  }
+
   let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
   let all = await globby('**/*.{js,ts,jsx,tsx}', opts)
 
@@ -91,7 +101,7 @@ module.exports = async function check (stdout, cwd, print) {
   all.push(join(TS_DIR, 'lib.es2018.d.ts'))
 
   let expects = await parseTest(failTests)
-  let errors = await checkFiles(all)
+  let errors = await checkFiles(all, compilerOptions)
 
   let bad = { }
   function push (file, message) {
