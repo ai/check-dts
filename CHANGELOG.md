@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3
+* Use custom `tsconfig.json`
+
 ## 0.2
 * Prohibit implicit `any`.
 
