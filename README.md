@@ -64,3 +64,6 @@ lib.on<Events>('set', 'prop', 1)
    +   "test": "jest && eslint . && check-dts"
      }
    ```
+
+8. If your library requires additional TypeScript option, you can define them
+   for tests in `tsconfig.json`.
