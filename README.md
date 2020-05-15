@@ -55,6 +55,7 @@ lib.on<Events>('set', 'prop', 1)
    You can test IDE autocompletion in that file.
 4. Run `npx check-dts` to test new file.
 5. Create `test/index.errors.ts` for negative tests and write wrong types there.
+   See the next section for details.
 6. Run `npx check-dts` to test both files.
 7. Add `check-dts` to `npm test` to test types on CI:
 
@@ -68,43 +69,42 @@ lib.on<Events>('set', 'prop', 1)
 8. If your library requires additional TypeScript option, you can define them
    for tests in `tsconfig.json`.
 
-### How to write negative test
-Should write expect errors as comments like `// THROWS some error messages`
+
+## Writing Negative Test
+
+Put a comments like `// THROWS some error messages` above the line,
+where do you expect an error from TypeScript.
+
+Write code, where do you expect TypeScript to tell you about the error.
 
 ```ts
 import lib = require('../')
 
 interface Events {
-  'set': (a: string, b: number) => void
+  set: (a: string, b: number) => void
 }
 lib.on<Events>('set', 2)
 ```
+
 In this case, we expect error message `Expected 3 arguments, but got 2`.
-So we should add comments:
+So we should add comments. You can put only part of the error message
+to the `// THROWS comment`.
 
 ```diff
-import lib = require('../')
+  import lib = require('../')
 
-interface Events {
-  'set': (a: string, b: number) => void
-}
+  interface Events {
+    set: (a: string, b: number) => void
+  }
 + // THROWS Expected 3 arguments, but got 2
-lib.on<Events>('set', 2)
+  lib.on<Events>('set', 2)
 ```
 
-Show alert, if we've written wrong error message:
-
-```ts
-import lib = require('../')
-
-interface Events {
-  'set': (a: string, b: number) => void
-}
-+ // THROWS Expected 0 arguments, but got 1
-lib.on<Events>('set', 2)
-```
+If TypeScript will not find the error or will throw a different error,
+`check-dts` will fall with a description:
 
 ```bash
+$ npx check-dts
 ✖ Check types
 ✖ test/index.errors.ts
 
