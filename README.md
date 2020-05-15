@@ -67,3 +67,48 @@ lib.on<Events>('set', 'prop', 1)
 
 8. If your library requires additional TypeScript option, you can define them
    for tests in `tsconfig.json`.
+
+### How to write negative test
+Should write expect errors as comments like `// THROWS some error messages`
+
+```ts
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void
+}
+lib.on<Events>('set', 2)
+```
+In this case, we expect error message `Expected 3 arguments, but got 2`.
+So we should add comments:
+
+```diff
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void
+}
++ // THROWS Expected 3 arguments, but got 2
+lib.on<Events>('set', 2)
+```
+
+Show alert, if we've written wrong error message:
+
+```ts
+import lib = require('../')
+
+interface Events {
+  'set': (a: string, b: number) => void
+}
++ // THROWS Expected 0 arguments, but got 1
+lib.on<Events>('set', 2)
+```
+
+```bash
+✖ Check types
+✖ test/index.errors.ts
+
+  x:y: Wrong error
+  Expected: Expected 0 arguments, but got 1
+  Got: Expected 3 arguments, but got 2.
+```
