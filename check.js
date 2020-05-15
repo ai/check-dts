@@ -88,7 +88,7 @@ module.exports = async function check (stdout, cwd, print) {
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
       'TypeScript files was not found. ' +
-      'Create .d.ts files and test/types.ts and test/errors.ts.'
+        'Create .d.ts files and test/types.ts and test/errors.ts.'
     )
     err.own = true
     throw err
@@ -103,7 +103,7 @@ module.exports = async function check (stdout, cwd, print) {
   let expects = await parseTest(failTests)
   let errors = await checkFiles(all, compilerOptions)
 
-  let bad = { }
+  let bad = {}
   function push (file, message) {
     if (!bad[file]) bad[file] = []
     bad[file].push(message)
@@ -114,28 +114,33 @@ module.exports = async function check (stdout, cwd, print) {
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
     })
-    let pos = r(`${ line }:${ col }:`)
+    let pos = r(`${line}:${col}:`)
     let text = getText(i)
     if (!failTests.includes(i.file.fileName)) {
       push(
         i.file.fileName,
-        '  ' + b(pos + ' Type error ' + chalk.gray(`TS${ i.code }`) + '\n') +
-        '  ' + r(text)
+        '  ' +
+          b(pos + ' Type error ' + chalk.gray(`TS${i.code}`) + '\n') +
+          '  ' +
+          r(text)
       )
     } else if (!expect) {
       push(
         i.file.fileName,
-        '  ' + b(pos + ' Unexpected error\n') +
-        '  ' + r(text)
+        '  ' + b(pos + ' Unexpected error\n') + '  ' + r(text)
       )
     } else {
       expect.used = true
       if (!text.includes(expect.pattern)) {
         push(
           i.file.fileName,
-          '  ' + b(pos + ' Wrong error\n') +
-          '  Expected: ' + g(expect.pattern) + '\n' +
-          '  Got: ' + r(text)
+          '  ' +
+            b(pos + ' Wrong error\n') +
+            '  Expected: ' +
+            g(expect.pattern) +
+            '\n' +
+            '  Got: ' +
+            r(text)
         )
       }
     }
@@ -144,8 +149,10 @@ module.exports = async function check (stdout, cwd, print) {
   for (let i of unused) {
     push(
       i.fileName,
-      '  ' + b(r(`${ i.line }:${ i.col }:`) + ' Error was not found\n') +
-      '  ' + r(i.pattern)
+      '  ' +
+        b(r(`${i.line}:${i.col}:`) + ' Error was not found\n') +
+        '  ' +
+        r(i.pattern)
     )
   }
 

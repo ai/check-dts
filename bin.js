@@ -32,7 +32,7 @@ async function run () {
     let result = await check(process.stdout, process.cwd(), print)
     if (!result) process.exit(1)
   } else {
-    error(`Unknown argument ${ arg }\n`)
+    error(`Unknown argument ${arg}\n`)
     showHelp(print)
     process.exit(1)
   }
