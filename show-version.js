@@ -1,7 +1,7 @@
-let chalk = require('chalk')
+let kleur = require('kleur')
 
 let pkg = require('./package.json')
 
 module.exports = function showVersion (print) {
-  print(`check-dts ${chalk.bold(pkg.version)}`)
+  print(`check-dts ${kleur.bold(pkg.version)}`)
 }

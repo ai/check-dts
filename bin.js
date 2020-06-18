@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 let ciJobNumber = require('ci-job-number')
-let chalk = require('chalk')
+let kleur = require('kleur')
 
 if (ciJobNumber() !== 1) {
   process.stdout.write(
-    chalk.yellow('check-tds runs only on first CI job, to save CI resources\n')
+    kleur.yellow('check-tds runs only on first CI job, to save CI resources\n')
   )
   process.exit()
 }
@@ -15,7 +15,7 @@ let showHelp = require('./show-help')
 let check = require('./check')
 
 function error (message) {
-  process.stderr.write(chalk.red(message) + '\n')
+  process.stderr.write(kleur.red(message) + '\n')
 }
 
 function print (...lines) {

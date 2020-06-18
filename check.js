@@ -2,7 +2,7 @@ let { dirname, basename, join, relative } = require('path')
 let { promisify } = require('util')
 let lineColumn = require('line-column')
 let globby = require('globby')
-let chalk = require('chalk')
+let kleur = require('kleur')
 let ora = require('ora')
 let fs = require('fs')
 
@@ -19,9 +19,9 @@ try {
   createProgram = require('./create-program')
 }
 
-let r = chalk.red
-let b = chalk.bold
-let g = chalk.green
+let r = kleur.red
+let b = kleur.bold
+let g = kleur.green
 
 function checkFiles (files, compilerOptions) {
   if (Worker) {
@@ -46,8 +46,8 @@ function getText (error) {
 }
 
 function formatName (cwd, file) {
-  return chalk.gray(
-    relative(cwd, file).replace(basename(file), i => chalk.white.bold(i))
+  return kleur.gray(
+    relative(cwd, file).replace(basename(file), i => kleur.white().bold(i))
   )
 }
 
@@ -120,7 +120,7 @@ module.exports = async function check (stdout, cwd, print) {
       push(
         i.file.fileName,
         '  ' +
-          b(pos + ' Type error ' + chalk.gray(`TS${i.code}`) + '\n') +
+          b(pos + ' Type error ' + kleur.gray(`TS${i.code}`) + '\n') +
           '  ' +
           r(text)
       )
@@ -174,7 +174,7 @@ module.exports = async function check (stdout, cwd, print) {
   } else {
     spinner.succeed()
     for (let i of typeTests) {
-      print(chalk.green('✔ ') + formatName(cwd, i))
+      print(kleur.green('✔ ') + formatName(cwd, i))
     }
     return true
   }

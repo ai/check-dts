@@ -1,7 +1,7 @@
-let chalk = require('chalk')
+let kleur = require('kleur')
 
-let y = chalk.yellow
-let b = chalk.bold
+let y = kleur.yellow
+let b = kleur.bold
 
 module.exports = function showHelp (print) {
   print(
