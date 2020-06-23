@@ -1,8 +1,8 @@
+let { red: r, bold: b, green: g, gray, white, bold } = require('colorette')
 let { dirname, basename, join, relative } = require('path')
 let { promisify } = require('util')
 let lineColumn = require('line-column')
 let globby = require('globby')
-let kleur = require('kleur')
 let ora = require('ora')
 let fs = require('fs')
 
@@ -18,10 +18,6 @@ try {
 } catch {
   createProgram = require('./create-program')
 }
-
-let r = kleur.red
-let b = kleur.bold
-let g = kleur.green
 
 function checkFiles (files, compilerOptions) {
   if (Worker) {
@@ -46,9 +42,7 @@ function getText (error) {
 }
 
 function formatName (cwd, file) {
-  return kleur.gray(
-    relative(cwd, file).replace(basename(file), i => kleur.white().bold(i))
-  )
+  return gray(relative(cwd, file).replace(basename(file), i => white(bold(i))))
 }
 
 async function parseTest (files) {
@@ -120,7 +114,7 @@ module.exports = async function check (stdout, cwd, print) {
       push(
         i.file.fileName,
         '  ' +
-          b(pos + ' Type error ' + kleur.gray(`TS${i.code}`) + '\n') +
+          b(pos + ' Type error ' + gray(`TS${i.code}`) + '\n') +
           '  ' +
           r(text)
       )
@@ -174,7 +168,7 @@ module.exports = async function check (stdout, cwd, print) {
   } else {
     spinner.succeed()
     for (let i of typeTests) {
-      print(kleur.green('✔ ') + formatName(cwd, i))
+      print(g('✔ ') + formatName(cwd, i))
     }
     return true
   }

@@ -3,7 +3,7 @@
 exports[`works without web workers 1`] = `
 "- Check types
 [32m✔[39m Check types
-[32m✔ [39m[90mtest/[37m[1merrors.ts[39m[90m[22m[39m
-[32m✔ [39m[90mtest/[37m[1mtypes.ts[39m[90m[22m[39m
+[32m✔ [39m[90mtest/[37m[1merrors.ts[22m[90m[39m
+[32m✔ [39m[90mtest/[37m[1mtypes.ts[22m[90m[39m
 "
 `;

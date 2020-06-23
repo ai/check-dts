@@ -1,7 +1,4 @@
-let kleur = require('kleur')
-
-let y = kleur.yellow
-let b = kleur.bold
+let { yellow: y, bold: b } = require('colorette')
 
 module.exports = function showHelp (print) {
   print(
