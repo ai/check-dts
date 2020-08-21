@@ -3,10 +3,16 @@
 exports[`checks both tests 1`] = `
 "- Check types
 [31m✖[39m Check types
+[31m✖ [39m[90mtest/[37m[1ma.errors.ts[22m[90m[39m
+
+  [1m[31m4:10:[39m Wrong error
+[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+  Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
+
 [31m✖ [39m[90mtest/[37m[1ma.types.ts[22m[90m[39m
 
   [1m[31m3:10:[39m Type error [90mTS2345[39m
-[22m  [31mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+[22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 [31m✖ [39m[90mtest/[37m[1mb.errors.ts[22m[90m[39m
 
@@ -39,6 +45,12 @@ exports[`checks negative tests 1`] = `
   [1m[31m1:18:[39m Type error [90mTS7010[39m
 [22m  [31m'a', which lacks return-type annotation, implicitly has an 'any' return type.[39m
 
+[31m✖ [39m[90mtest/[37m[1ma.errors.ts[22m[90m[39m
+
+  [1m[31m4:10:[39m Wrong error
+[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+  Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
+
 [31m✖ [39m[90mtest/[37m[1mb.errors.ts[22m[90m[39m
 
   [1m[31m9:7:[39m Wrong error
@@ -57,10 +69,16 @@ exports[`checks negative tests 1`] = `
 exports[`checks positive tests 1`] = `
 "- Check types
 [31m✖[39m Check types
+[31m✖ [39m[90mtest/[37m[1merrors.ts[22m[90m[39m
+
+  [1m[31m4:14:[39m Wrong error
+[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+  Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
+
 [31m✖ [39m[90mtest/[37m[1mtypes.ts[22m[90m[39m
 
   [1m[31m3:14:[39m Type error [90mTS2345[39m
-[22m  [31mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+[22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 "
 `;

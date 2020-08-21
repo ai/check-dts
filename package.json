@@ -13,42 +13,40 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "test": "jest-ci --coverage && eslint-ci . && yaspeller-ci *.md",
-    "clean": "rimraf coverage/"
+    "test": "jest-ci --coverage && eslint-ci . && yaspeller-ci *.md"
   },
   "dependencies": {
     "ci-job-number": "^1.2.2",
-    "colorette": "^1.2.0",
+    "colorette": "^1.2.1",
     "globby": "^11.0.1",
     "line-column": "^1.0.2",
-    "ora": "^4.0.4",
-    "typescript": "^3.9.5"
+    "ora": "^5.0.0",
+    "typescript": "^4.0.2"
   },
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
   "repository": "ai/check-dts",
   "devDependencies": {
-    "@logux/eslint-config": "^39.0.2",
-    "@logux/sharec-config": "^0.7.3",
-    "clean-publish": "^1.1.7",
-    "eslint": "^7.3.1",
+    "@logux/eslint-config": "^40.0.3",
+    "@logux/sharec-config": "^0.7.4",
+    "clean-publish": "^1.1.8",
+    "eslint": "^7.7.0",
     "eslint-ci": "^1.0.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jest": "^23.17.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prefer-let": "^1.0.1",
-    "eslint-plugin-prettierx": "^0.12.1",
+    "eslint-plugin-prefer-let": "^1.0.2",
+    "eslint-plugin-prettierx": "^0.14.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-unicorn": "^20.1.0",
+    "eslint-plugin-unicorn": "^21.0.0",
     "husky": "^4.2.5",
-    "jest": "^26.1.0",
+    "jest": "^26.4.1",
     "jest-ci": "^0.1.1",
     "lint-staged": "^10.2.11",
     "print-snapshots": "^0.3.2",
-    "rimraf": "^3.0.2",
     "yaspeller": "^7.0.0",
     "yaspeller-ci": "^1.0.2"
   },
@@ -96,6 +94,6 @@
   },
   "sharec": {
     "config": "@logux/sharec-config",
-    "version": "0.7.3"
+    "version": "0.7.4"
   }
 }
