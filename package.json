@@ -1,6 +1,6 @@
 {
   "name": "check-dts",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Unit tests for .d.ts TypeScript definitions",
   "keywords": [
     "typescript",
