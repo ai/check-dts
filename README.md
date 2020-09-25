@@ -3,11 +3,11 @@
 Unit tests for `.d.ts` TypeScript definitions in your JavaScript
 open source library.
 
-It is useful for non-TypeScript project, which want to provide good typing
-support for TypeScript users and good autocompletion for IDE and text editors.
+It is useful for non-TypeScript project, which wants to provide typing
+support for TypeScript users and autocompletion for IDE and text editors.
 
-It became especially useful if you have complex types with generics, like
-we have in [Nano Events] or [Storeon].
+It becomes especially useful for complex types with generics, like we have
+in [Nano Events] or [Storeon].
 
 ```ts
 // Negative test: test/index.errors.ts
@@ -52,10 +52,10 @@ lib.on<Events>('set', 'prop', 1)
    ```
 
 3. Create `test/index.types.ts` for positive tests and write correct TypeScript.
-   You can test IDE autocompletion in that file.
-4. Run `npx check-dts` to test new file.
-5. Create `test/index.errors.ts` for negative tests and write wrong types there.
-   See the next section for details.
+   You can test IDE autocompletion in this file.
+4. Run `npx check-dts` to test the new file.
+5. Create `test/index.errors.ts` for negative tests and add an incorrect usage
+   of your library recording to TypeScript. See the next section for details.
 6. Run `npx check-dts` to test both files.
 7. Add `check-dts` to `npm test` to test types on CI:
 
@@ -66,16 +66,14 @@ lib.on<Events>('set', 'prop', 1)
      }
    ```
 
-8. If your library requires additional TypeScript option, you can define them
+8. If your library requires an additional TypeScript option, you can define it
    for tests in `tsconfig.json`.
 
 
 ## Writing Negative Test
 
-Put a comments like `// THROWS some error messages` above the line,
-where do you expect an error from TypeScript.
-
-Write code, where do you expect TypeScript to tell you about the error.
+Add code where you expect TypeScript to report an error. Make sure to add a
+line above the expected error like `// THROWS some error messages`
 
 ```ts
 import lib = require('../')
@@ -86,7 +84,7 @@ interface Events {
 lib.on<Events>('set', 2)
 ```
 
-In this case, we expect error message `Expected 3 arguments, but got 2`.
+In this case, we expect the error message `Expected 3 arguments, but got 2`.
 So we should add comments. You can put only part of the error message
 to the `// THROWS comment`.
 
@@ -100,7 +98,7 @@ to the `// THROWS comment`.
   lib.on<Events>('set', 2)
 ```
 
-If TypeScript will not find the error or will throw a different error,
+If TypeScript does not report the error or reports a different error,
 `check-dts` will fall with a description:
 
 ```bash
