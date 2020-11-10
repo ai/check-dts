@@ -1,11 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`prints version 1`] = `
-"[1mUsage: [22mnpx check-dts
+"[1mUsage: [22mnpx check-dts [FILES]
 Check \`.d.ts\` files in open source library according to types tests
 
 [1mArguments:[22m
-  [33m--version[39m   Show version
-  [33m--help[39m   Show this message
+  [33m[FILES][39m    Optional a list of files/globs
+  [33m--version[39m  Show version
+  [33m--help[39m     Show this message
 "
 `;

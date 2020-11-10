@@ -62,6 +62,6 @@ it('warns about empty project', async () => {
   } catch (e) {
     error = e
   }
-  expect(error.message).toContain('TypeScript files was not found')
+  expect(error.message).toContain('TypeScript files were not found')
   expect(error.own).toBe(true)
 })

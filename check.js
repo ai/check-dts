@@ -82,13 +82,7 @@ module.exports = async function check (
   }
 
   let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
-  let all = (await Promise.all(globs.map(glob => globby(glob, opts)))).reduce(
-    (acc, x) => {
-      acc.push(...x)
-      return acc
-    },
-    []
-  )
+  let all = await globby(globs, opts)
 
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
