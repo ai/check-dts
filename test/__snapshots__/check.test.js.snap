@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`accepts files 1`] = `
+"- Check types
+[32m✔[39m Check types
+"
+`;
+
 exports[`checks both tests 1`] = `
 "- Check types
 [31m✖[39m Check types

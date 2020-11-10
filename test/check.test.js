@@ -4,7 +4,7 @@ let { join } = require('path')
 
 let check = require('../check')
 
-async function run (fixture) {
+async function run (fixture, args) {
   let stdout = { out: '' }
   stdout.write = symbols => {
     stdout.out += symbols
@@ -13,18 +13,18 @@ async function run (fixture) {
     stdout.write(lines.join('\n') + '\n')
   }
   let cwd = join(__dirname, 'fixtures', fixture)
-  let exitCode = await check(stdout, cwd, stdout.print)
+  let exitCode = await check(stdout, cwd, stdout.print, args)
   return [exitCode, stdout.out]
 }
 
-async function good (fixture) {
-  let [exitCode, out] = await run(fixture)
+async function good (fixture, args) {
+  let [exitCode, out] = await run(fixture, args)
   expect(exitCode).toBe(true)
   return out
 }
 
-async function bad (fixture) {
-  let [exitCode, out] = await run(fixture)
+async function bad (fixture, args) {
+  let [exitCode, out] = await run(fixture, args)
   expect(exitCode).toBe(false)
   return out
 }
@@ -53,6 +53,10 @@ it('checks mixed tests', async () => {
 
 it('loads custom tsconfig.json', async () => {
   expect(await good('tsconfig')).toMatchSnapshot()
+})
+
+it('accepts files', async () => {
+  expect(await good('negative', 'b.*')).toMatchSnapshot()
 })
 
 it('warns about empty project', async () => {
