@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4
+* Added files arguments (by Budleigh Salterton).
+* Changed output to be able to click on line.
+
 ## 0.3.3
 * Use TypeScript 4.
 
