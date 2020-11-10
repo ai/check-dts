@@ -1,4 +1,4 @@
-let { red: r, bold: b, green: g, gray, white, bold } = require('colorette')
+let { red: r, bold: b, green: g, gray, white } = require('colorette')
 let { dirname, basename, join, relative } = require('path')
 let { promisify } = require('util')
 let lineColumn = require('line-column')
@@ -41,8 +41,8 @@ function getText (error) {
   }
 }
 
-function formatName (cwd, file) {
-  return gray(relative(cwd, file).replace(basename(file), i => white(bold(i))))
+function formatName (cwd, file, color) {
+  return gray(relative(cwd, file).replace(basename(file), i => color(i)))
 }
 
 async function parseTest (files) {
@@ -113,28 +113,22 @@ module.exports = async function check (
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
     })
-    let pos = r(`${line}:${col}:`)
+    let prefix = r(`✖ ${formatName(cwd, i.file.fileName, r)}:${line}:${col}:`)
     let text = getText(i)
     if (!failTests.includes(i.file.fileName)) {
       push(
-        i.file.fileName,
-        '  ' +
-          b(pos + ' Type error ' + gray(`TS${i.code}`) + '\n') +
-          '  ' +
-          r(text)
+        i.fileName,
+        prefix + b(' Type error ' + gray(`TS${i.code}`) + '\n') + '  ' + r(text)
       )
     } else if (!expect) {
-      push(
-        i.file.fileName,
-        '  ' + b(pos + ' Unexpected error\n') + '  ' + r(text)
-      )
+      push(i.fileName, prefix + b(' Unexpected error\n') + '  ' + r(text))
     } else {
       expect.used = true
       if (!text.includes(expect.pattern)) {
         push(
-          i.file.fileName,
-          '  ' +
-            b(pos + ' Wrong error\n') +
+          i.fileName,
+          prefix +
+            b(' Wrong error\n') +
             '  Expected: ' +
             g(expect.pattern) +
             '\n' +
@@ -148,8 +142,8 @@ module.exports = async function check (
   for (let i of unused) {
     push(
       i.fileName,
-      '  ' +
-        b(r(`${i.line}:${i.col}:`) + ' Error was not found\n') +
+      r(`✖ ${formatName(cwd, i.fileName, r)}:${i.line}:${i.col}:`) +
+        b(' Error was not found\n') +
         '  ' +
         r(i.pattern)
     )
@@ -158,8 +152,8 @@ module.exports = async function check (
   let failed = Object.keys(bad).length > 0
   if (failed) {
     spinner.fail()
+    print('')
     for (let file in bad) {
-      print(r('✖ ') + formatName(cwd, file) + '\n')
       let messages = (bad[file] || []).sort((msg1, msg2) => {
         let line1 = parseInt(msg1.match(/(\d+):/)[1])
         let line2 = parseInt(msg2.match(/(\d+):/)[1])
@@ -173,7 +167,7 @@ module.exports = async function check (
   } else {
     spinner.succeed()
     for (let i of typeTests) {
-      print(g('✔ ') + formatName(cwd, i))
+      print(g('✔ ') + formatName(cwd, i, white))
     }
     return true
   }

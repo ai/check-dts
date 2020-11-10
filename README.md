@@ -104,9 +104,8 @@ If TypeScript does not report the error or reports a different error,
 ```bash
 $ npx check-dts
 ✖ Check types
-✖ test/index.errors.ts
 
-  errors.ts:7:23: Wrong error
+✖ test/index.errors.ts:7:23: Wrong error
   Expected: Expected 0 arguments, but got 1
   Got: Expected 3 arguments, but got 2.
 ```
