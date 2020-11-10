@@ -66,7 +66,12 @@ async function parseTest (files) {
   return expects
 }
 
-module.exports = async function check (stdout, cwd, print) {
+module.exports = async function check (
+  stdout,
+  cwd,
+  print,
+  globs = ['**/*.{js,ts,jsx,tsx}']
+) {
   let spinner = ora({ stream: stdout }).start('Check types')
 
   let compilerOptions
@@ -77,11 +82,17 @@ module.exports = async function check (stdout, cwd, print) {
   }
 
   let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
-  let all = await globby('**/*.{js,ts,jsx,tsx}', opts)
+  let all = (await Promise.all(globs.map(glob => globby(glob, opts)))).reduce(
+    (acc, x) => {
+      acc.push(...x)
+      return acc
+    },
+    []
+  )
 
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
-      'TypeScript files was not found. ' +
+      'TypeScript files were not found. ' +
         'Create .d.ts files and test/types.ts and test/errors.ts.'
     )
     err.own = true

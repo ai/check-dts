@@ -5,7 +5,7 @@ let ciJobNumber = require('ci-job-number')
 
 if (ciJobNumber() !== 1) {
   process.stdout.write(
-    yellow('check-tds runs only on first CI job, to save CI resources\n')
+    yellow('check-dts runs only on first CI job, to save CI resources\n')
   )
   process.exit()
 }
@@ -32,9 +32,13 @@ async function run () {
     let result = await check(process.stdout, process.cwd(), print)
     if (!result) process.exit(1)
   } else {
-    error(`Unknown argument ${arg}\n`)
-    showHelp(print)
-    process.exit(1)
+    let result = await check(
+      process.stdout,
+      process.cwd(),
+      print,
+      process.argv.slice(2)
+    )
+    if (!result) process.exit(1)
   }
 }
 
