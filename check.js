@@ -1,7 +1,7 @@
 let { red: r, bold: b, green: g, gray, white } = require('colorette')
 let { dirname, basename, join, relative } = require('path')
+let vfileLocation = require('vfile-location')
 let { promisify } = require('util')
-let lineColumn = require('line-column')
 let globby = require('globby')
 let ora = require('ora')
 let fs = require('fs')
@@ -51,14 +51,14 @@ async function parseTest (files) {
     files.map(async fileName => {
       let source = (await readFile(fileName)).toString()
       let prev, pos
-      let lines = lineColumn(source)
+      let lines = vfileLocation(source)
       while (true) {
         pos = source.indexOf(PREFIX, prev + 1)
         if (pos === -1) break
         let newline = source.indexOf('\n', pos)
         let pattern = source.slice(pos + PREFIX.length, newline)
-        let { line, col } = lines.fromIndex(pos)
-        expects.push({ fileName, line: line + 1, col, pattern })
+        let { line, column } = lines.toPoint(pos)
+        expects.push({ fileName, line: line + 1, column, pattern })
         prev = pos
       }
     })
@@ -109,11 +109,13 @@ module.exports = async function check (
   }
 
   for (let i of errors) {
-    let { line, col } = lineColumn(i.file.text).fromIndex(i.start)
+    let { line, column } = vfileLocation(i.file.text).toPoint(i.start)
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
     })
-    let prefix = r(`✖ ${formatName(cwd, i.file.fileName, r)}:${line}:${col}:`)
+    let prefix = r(
+      `✖ ${formatName(cwd, i.file.fileName, r)}:${line}:${column}:`
+    )
     let text = getText(i)
     if (!failTests.includes(i.file.fileName)) {
       push(
@@ -142,7 +144,7 @@ module.exports = async function check (
   for (let i of unused) {
     push(
       i.fileName,
-      r(`✖ ${formatName(cwd, i.fileName, r)}:${i.line}:${i.col}:`) +
+      r(`✖ ${formatName(cwd, i.fileName, r)}:${i.line}:${i.column}:`) +
         b(' Error was not found\n') +
         '  ' +
         r(i.pattern)
