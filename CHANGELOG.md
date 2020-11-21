@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.1
+* Reduced dependencies number.
+
 ## 0.4
 * Added files arguments (by Budleigh Salterton).
 * Changed output to be able to click on line.
