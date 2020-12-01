@@ -44,7 +44,7 @@ lib.on<Events>('set', 'prop', 1)
 
 1. Add `.d.ts` files with TypeScript definitions for your JS library.
    You can check example in
-   [Nano Events](https://github.com/ai/nanoevents/blob/master/index.d.ts).
+   [Nano Events](https://github.com/ai/nanoevents/blob/main/index.d.ts).
 2. Install `check-dts`:
 
    ```sh
