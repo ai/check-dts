@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.2
+* Fixed `moduleResolution` support in custom `tsconfig.json`.
+
 ## 0.4.1
 * Reduced dependencies number.
 
@@ -18,7 +21,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 * Reduce dependencies.
 
 ## 0.3
-* Use custom `tsconfig.json`
+* Use custom `tsconfig.json`.
 
 ## 0.2
 * Prohibit implicit `any`.
