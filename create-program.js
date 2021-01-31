@@ -5,7 +5,6 @@ const DEFAULT = {
   strictFunctionTypes: false,
   noUnusedParameters: true,
   noImplicitReturns: true,
-  moduleResolution: ts.ModuleResolutionKind.NodeJs,
   noUnusedLocals: true,
   stripInternal: true,
   allowJs: true,
@@ -16,5 +15,6 @@ const DEFAULT = {
 }
 
 module.exports = function createProgram (files, compilerOptions = DEFAULT) {
+  compilerOptions.moduleResolution = ts.ModuleResolutionKind.NodeJs
   return ts.getPreEmitDiagnostics(ts.createProgram(files, compilerOptions))
 }
