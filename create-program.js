@@ -5,6 +5,7 @@ const DEFAULT = {
   strictFunctionTypes: false,
   noUnusedParameters: true,
   noImplicitReturns: true,
+  moduleResolution: 'NodeJs',
   noUnusedLocals: true,
   stripInternal: true,
   allowJs: true,
@@ -14,7 +15,22 @@ const DEFAULT = {
   jsx: 'react'
 }
 
-module.exports = function createProgram (files, compilerOptions = DEFAULT) {
-  compilerOptions.moduleResolution = ts.ModuleResolutionKind.NodeJs
-  return ts.getPreEmitDiagnostics(ts.createProgram(files, compilerOptions))
+const KEY_TO_MODULE = {
+  none: ts.ModuleKind.None,
+  commonjs: ts.ModuleKind.CommonJS,
+  amd: ts.ModuleKind.AMD,
+  umd: ts.ModuleKind.UMD,
+  system: ts.ModuleKind.System,
+  es2015: ts.ModuleKind.ES2015,
+  es2020: ts.ModuleKind.ES2020,
+  esnext: ts.ModuleKind.ESNext
+}
+
+module.exports = function createProgram (files, opts = DEFAULT) {
+  opts.moduleResolution = ts.ModuleResolutionKind.NodeJs
+  if (typeof opts.module === 'string') {
+    opts.module = ts.ModuleKind[KEY_TO_MODULE[opts.module.toLowerCase()]]
+  }
+  opts.noEmit = true
+  return ts.getPreEmitDiagnostics(ts.createProgram(files, opts))
 }

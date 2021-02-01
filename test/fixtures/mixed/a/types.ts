@@ -1,3 +1,3 @@
-import a = require('.')
+import a from '.'
 
 a('abc', 1)

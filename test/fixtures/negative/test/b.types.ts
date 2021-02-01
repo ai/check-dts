@@ -1,4 +1,4 @@
-import b = require('../b')
+import b from '../b'
 
 interface Events {
   'set': (a: string, b: number) => void,

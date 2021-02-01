@@ -1,3 +1,3 @@
-import A = require('.')
+import A from '.'
 
 console.log(A)
