@@ -1,6 +1,6 @@
 {
   "name": "check-dts",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Unit tests for .d.ts TypeScript definitions",
   "keywords": [
     "typescript",
@@ -85,7 +85,8 @@
       "Storeon",
       "JS",
       "CI",
-      "js"
+      "js",
+      "ES"
     ]
   },
   "sharec": {

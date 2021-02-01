@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4.4
+* Fixed ES modules support.
+
 ## 0.4.3
 * Fixed `module` support in custom `tsconfig.json`.
 
