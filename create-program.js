@@ -29,7 +29,7 @@ const KEY_TO_MODULE = {
 module.exports = function createProgram (files, opts = DEFAULT) {
   opts.moduleResolution = ts.ModuleResolutionKind.NodeJs
   if (typeof opts.module === 'string') {
-    opts.module = ts.ModuleKind[KEY_TO_MODULE[opts.module.toLowerCase()]]
+    opts.module = KEY_TO_MODULE[opts.module.toLowerCase()]
   }
   opts.noEmit = true
   return ts.getPreEmitDiagnostics(ts.createProgram(files, opts))
