@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5
+* Dropped Node.js 10 support.
+* Reduced dependencies.
+
 ## 0.4.4
 * Fixed ES modules support.
 
