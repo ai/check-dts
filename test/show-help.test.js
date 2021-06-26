@@ -1,6 +1,4 @@
-process.env.FORCE_COLOR = 1
-
-let showHelp = require('../show-help')
+import { showHelp } from '../show-help.js'
 
 function createStdout() {
   let result = { out: '' }

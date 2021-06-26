@@ -1,7 +1,11 @@
-let { bold } = require('colorette')
+import { fileURLToPath } from 'url'
+import { readFileSync } from 'fs'
+import { bold } from 'colorette'
+import { join } from 'path'
 
-let pkg = require('./package.json')
-
-module.exports = function showVersion(print) {
-  print(`check-dts ${bold(pkg.version)}`)
+export function showVersion(print) {
+  let pkg = readFileSync(
+    join(fileURLToPath(import.meta.url), '..', 'package.json')
+  )
+  print(`check-dts ${bold(JSON.parse(pkg).version)}`)
 }

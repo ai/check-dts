@@ -1,18 +1,10 @@
 #!/usr/bin/env node
 
-let { red, yellow } = require('colorette')
-let ciJobNumber = require('ci-job-number')
+import { red } from 'colorette'
 
-if (ciJobNumber() !== 1) {
-  process.stdout.write(
-    yellow('check-dts runs only on first CI job, to save CI resources\n')
-  )
-  process.exit()
-}
-
-let showVersion = require('./show-version')
-let showHelp = require('./show-help')
-let check = require('./check')
+import { showVersion } from './show-version.js'
+import { showHelp } from './show-help.js'
+import { check } from './check.js'
 
 function error(message) {
   process.stderr.write(red(message) + '\n')

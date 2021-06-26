@@ -26,7 +26,6 @@ jobs:
         node-version:
           - 14
           - 12
-          - 10
     name: Node.js ${{ matrix.node-version }} Quick
     steps:
       - name: Checkout the repository
@@ -38,4 +37,4 @@ jobs:
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
       - name: Run unit tests
-        run: npx jest
+        run: node --experimental-vm-modules node_modules/.bin/jest

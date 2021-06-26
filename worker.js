@@ -1,6 +1,6 @@
-let { parentPort, workerData } = require('worker_threads')
+import { parentPort, workerData } from 'worker_threads'
 
-let createProgram = require('./create-program')
+import { createProgram } from './create-program.js'
 
 let { files, compilerOptions } = workerData
 

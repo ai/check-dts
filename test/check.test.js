@@ -1,8 +1,10 @@
-process.env.FORCE_COLOR = 1
+import { fileURLToPath } from 'url'
+import { join, dirname } from 'path'
+import { jest } from '@jest/globals'
 
-let { join } = require('path')
+import { check } from '../check.js'
 
-let check = require('../check')
+const ROOT = dirname(fileURLToPath(import.meta.url))
 
 async function run(fixture, args) {
   let stdout = { out: '' }
@@ -12,7 +14,7 @@ async function run(fixture, args) {
   stdout.print = (...lines) => {
     stdout.write(lines.join('\n') + '\n')
   }
-  let cwd = join(__dirname, 'fixtures', fixture)
+  let cwd = join(ROOT, 'fixtures', fixture)
   let exitCode = await check(stdout, cwd, stdout.print, args)
   return [exitCode, stdout.out]
 }

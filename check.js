@@ -1,36 +1,29 @@
-let { red: r, bold: b, green: g, gray, white } = require('colorette')
-let { dirname, basename, join, relative } = require('path')
-let vfileLocation = require('vfile-location')
-let { promisify } = require('util')
-let micoSpinner = require('mico-spinner')
-let globby = require('globby')
-let fs = require('fs')
+import { red as r, bold as b, green as g, gray, white } from 'colorette'
+import { dirname, basename, join, relative } from 'path'
+import { createRequire } from 'module'
+import { fileURLToPath } from 'url'
+import { existsSync } from 'fs'
+import { location } from 'vfile-location'
+import { readFile } from 'fs/promises'
+import micoSpinner from 'mico-spinner'
+import { Worker } from 'worker_threads'
+import globby from 'globby'
 
-let readFile = promisify(fs.readFile)
+let require = createRequire(import.meta.url)
 
+const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
-const WORKER = join(__dirname, 'worker.js')
+const WORKER = join(ROOT, 'worker.js')
 const PREFIX = '// THROWS '
 
-let Worker, createProgram
-try {
-  Worker = require('worker_threads').Worker
-} catch {
-  createProgram = require('./create-program')
-}
-
 function checkFiles(files, compilerOptions) {
-  if (Worker) {
-    return new Promise((resolve, reject) => {
-      let worker = new Worker(WORKER, {
-        workerData: { files, compilerOptions }
-      })
-      worker.on('message', resolve)
-      worker.on('error', reject)
+  return new Promise((resolve, reject) => {
+    let worker = new Worker(WORKER, {
+      workerData: { files, compilerOptions }
     })
-  } else {
-    return createProgram(files, compilerOptions)
-  }
+    worker.on('message', resolve)
+    worker.on('error', reject)
+  })
 }
 
 function getText(error) {
@@ -51,7 +44,7 @@ async function parseTest(files) {
     files.map(async fileName => {
       let source = (await readFile(fileName)).toString()
       let prev, pos
-      let lines = vfileLocation(source)
+      let lines = location(source)
       while (true) {
         pos = source.indexOf(PREFIX, prev + 1)
         if (pos === -1) break
@@ -66,7 +59,7 @@ async function parseTest(files) {
   return expects
 }
 
-module.exports = async function check(
+export async function check(
   stdout,
   cwd,
   print,
@@ -78,7 +71,7 @@ module.exports = async function check(
 
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
-  if (fs.existsSync(tsconfigPath)) {
+  if (existsSync(tsconfigPath)) {
     let tsconfig = JSON.parse(await readFile(tsconfigPath))
     compilerOptions = tsconfig.compilerOptions
   }
@@ -111,7 +104,7 @@ module.exports = async function check(
   }
 
   for (let i of errors) {
-    let { line, column } = vfileLocation(i.file.text).toPoint(i.start)
+    let { line, column } = location(i.file.text).toPoint(i.start)
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
     })

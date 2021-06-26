@@ -1,6 +1,4 @@
-process.env.FORCE_COLOR = 1
-
-let showVersion = require('../show-version')
+import { showVersion } from '../show-version.js'
 
 function createStdout() {
   let result = { out: '' }

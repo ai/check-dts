@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`works without web workers 1`] = `
-"[33m-[39m Check types
-[32m✔[39m Check types
-[32m✔ [39m[90mtest/[37merrors.ts[90m[39m
-[32m✔ [39m[90mtest/[37mtypes.ts[90m[39m
-"
-`;
