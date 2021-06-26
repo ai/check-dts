@@ -1,6 +1,6 @@
 let { yellow: y, bold: b } = require('colorette')
 
-module.exports = function showHelp (print) {
+module.exports = function showHelp(print) {
   print(
     b('Usage: ') + 'npx check-dts [FILES]',
     'Check `.d.ts` files in open source library according to types tests',

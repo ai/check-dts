@@ -6,7 +6,7 @@ jest.mock('worker_threads', () => {
   throw new Error('no workers')
 })
 
-async function run (fixture) {
+async function run(fixture) {
   let stdout = { out: '' }
   stdout.write = symbols => {
     stdout.out += symbols
@@ -19,7 +19,7 @@ async function run (fixture) {
   return [exitCode, stdout.out]
 }
 
-async function good (fixture) {
+async function good(fixture) {
   let [exitCode, out] = await run(fixture)
   expect(exitCode).toBe(true)
   return out

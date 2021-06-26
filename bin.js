@@ -14,15 +14,15 @@ let showVersion = require('./show-version')
 let showHelp = require('./show-help')
 let check = require('./check')
 
-function error (message) {
+function error(message) {
   process.stderr.write(red(message) + '\n')
 }
 
-function print (...lines) {
+function print(...lines) {
   process.stdout.write(lines.join('\n') + '\n')
 }
 
-async function run () {
+async function run() {
   let arg = process.argv[2]
   if (arg === '--version') {
     showVersion(print)

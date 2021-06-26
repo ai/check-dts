@@ -2,8 +2,8 @@ let { red: r, bold: b, green: g, gray, white } = require('colorette')
 let { dirname, basename, join, relative } = require('path')
 let vfileLocation = require('vfile-location')
 let { promisify } = require('util')
+let micoSpinner = require('mico-spinner')
 let globby = require('globby')
-let ora = require('ora')
 let fs = require('fs')
 
 let readFile = promisify(fs.readFile)
@@ -19,7 +19,7 @@ try {
   createProgram = require('./create-program')
 }
 
-function checkFiles (files, compilerOptions) {
+function checkFiles(files, compilerOptions) {
   if (Worker) {
     return new Promise((resolve, reject) => {
       let worker = new Worker(WORKER, {
@@ -33,7 +33,7 @@ function checkFiles (files, compilerOptions) {
   }
 }
 
-function getText (error) {
+function getText(error) {
   if (typeof error.messageText === 'object') {
     return error.messageText.messageText
   } else {
@@ -41,11 +41,11 @@ function getText (error) {
   }
 }
 
-function formatName (cwd, file, color) {
+function formatName(cwd, file, color) {
   return gray(relative(cwd, file).replace(basename(file), i => color(i)))
 }
 
-async function parseTest (files) {
+async function parseTest(files) {
   let expects = []
   await Promise.all(
     files.map(async fileName => {
@@ -66,13 +66,15 @@ async function parseTest (files) {
   return expects
 }
 
-module.exports = async function check (
+module.exports = async function check(
   stdout,
   cwd,
   print,
   globs = ['**/*.{js,ts,jsx,tsx}']
 ) {
-  let spinner = ora({ stream: stdout }).start('Check types')
+  let spinner = micoSpinner('Check types', { stream: stdout }).start(
+    'Check types'
+  )
 
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
@@ -103,7 +105,7 @@ module.exports = async function check (
   let errors = await checkFiles(all, compilerOptions)
 
   let bad = {}
-  function push (file, message) {
+  function push(file, message) {
     if (!bad[file]) bad[file] = []
     bad[file].push(message)
   }

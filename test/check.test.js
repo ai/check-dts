@@ -4,7 +4,7 @@ let { join } = require('path')
 
 let check = require('../check')
 
-async function run (fixture, args) {
+async function run(fixture, args) {
   let stdout = { out: '' }
   stdout.write = symbols => {
     stdout.out += symbols
@@ -17,13 +17,13 @@ async function run (fixture, args) {
   return [exitCode, stdout.out]
 }
 
-async function good (fixture, args) {
+async function good(fixture, args) {
   let [exitCode, out] = await run(fixture, args)
   expect(exitCode).toBe(true)
   return out
 }
 
-async function bad (fixture, args) {
+async function bad(fixture, args) {
   let [exitCode, out] = await run(fixture, args)
   expect(exitCode).toBe(false)
   return out

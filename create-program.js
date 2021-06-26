@@ -26,7 +26,7 @@ const KEY_TO_MODULE = {
   esnext: ts.ModuleKind.ESNext
 }
 
-module.exports = function createProgram (files, opts = DEFAULT) {
+module.exports = function createProgram(files, opts = DEFAULT) {
   opts.moduleResolution = ts.ModuleResolutionKind.NodeJs
   if (typeof opts.module === 'string') {
     opts.module = KEY_TO_MODULE[opts.module.toLowerCase()]

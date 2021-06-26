@@ -2,7 +2,7 @@ process.env.FORCE_COLOR = 1
 
 let showVersion = require('../show-version')
 
-function createStdout () {
+function createStdout() {
   let result = { out: '' }
   result.print = (...lines) => {
     result.out += lines.join('\n') + '\n'

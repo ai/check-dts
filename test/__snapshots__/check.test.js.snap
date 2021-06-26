@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`accepts files 1`] = `
-"- Check types
+"[33m-[39m Check types
 [32m✔[39m Check types
 "
 `;
 
 exports[`checks both tests 1`] = `
-"- Check types
+"[33m-[39m Check types
 [31m✖[39m Check types
 
 [31m✖ [90mtest/[31ma.types.ts[90m[31m:3:10:[39m[1m Type error [90mTS2345[39m
@@ -24,6 +24,10 @@ exports[`checks both tests 1`] = `
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:12:20:[39m[1m Unexpected error
 [22m  [31mExpected 1 arguments, but got 2.[39m
 
+[31m✖ [90mtest/[31mb.errors.ts[90m[31m:15:12:[39m[1m Wrong error
+[22m  Expected: [32mnot assignable to parameter of type '\\"set\\" | \\"tick\\"'[39m
+  Got: [31mArgument of type '\\"unknown\\"' is not assignable to parameter of type 'keyof Events'.[39m
+
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:11:1:[39m[1m Error was not found
 [22m  [31mMissed[39m
 
@@ -31,7 +35,7 @@ exports[`checks both tests 1`] = `
 `;
 
 exports[`checks mixed tests 1`] = `
-"- Check types
+"[33m-[39m Check types
 [32m✔[39m Check types
 [32m✔ [39m[90ma/[37merrors.ts[90m[39m
 [32m✔ [39m[90ma/[37mtypes.ts[90m[39m
@@ -39,7 +43,7 @@ exports[`checks mixed tests 1`] = `
 `;
 
 exports[`checks negative tests 1`] = `
-"- Check types
+"[33m-[39m Check types
 [31m✖[39m Check types
 
 [31m✖ [90m[31ma.d.ts[90m[31m:1:18:[39m[1m Type error [90mTS7010[39m
@@ -56,6 +60,10 @@ exports[`checks negative tests 1`] = `
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:12:20:[39m[1m Unexpected error
 [22m  [31mExpected 1 arguments, but got 2.[39m
 
+[31m✖ [90mtest/[31mb.errors.ts[90m[31m:15:12:[39m[1m Wrong error
+[22m  Expected: [32mnot assignable to parameter of type '\\"set\\" | \\"tick\\"'[39m
+  Got: [31mArgument of type '\\"unknown\\"' is not assignable to parameter of type 'keyof Events'.[39m
+
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:11:1:[39m[1m Error was not found
 [22m  [31mMissed[39m
 
@@ -63,7 +71,7 @@ exports[`checks negative tests 1`] = `
 `;
 
 exports[`checks positive tests 1`] = `
-"- Check types
+"[33m-[39m Check types
 [31m✖[39m Check types
 
 [31m✖ [90mtest/[31mtypes.ts[90m[31m:3:14:[39m[1m Type error [90mTS2345[39m
@@ -77,14 +85,14 @@ exports[`checks positive tests 1`] = `
 `;
 
 exports[`loads custom tsconfig.json 1`] = `
-"- Check types
+"[33m-[39m Check types
 [32m✔[39m Check types
 [32m✔ [39m[90m[37mtypes.ts[90m[39m
 "
 `;
 
 exports[`supports simple cases 1`] = `
-"- Check types
+"[33m-[39m Check types
 [32m✔[39m Check types
 [32m✔ [39m[90mtest/[37merrors.ts[90m[39m
 [32m✔ [39m[90mtest/[37mtypes.ts[90m[39m
