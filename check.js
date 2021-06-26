@@ -1,10 +1,9 @@
 import { red as r, bold as b, green as g, gray, white } from 'colorette'
 import { dirname, basename, join, relative } from 'path'
+import { existsSync, promises as fs } from 'fs'
 import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
-import { existsSync } from 'fs'
 import { location } from 'vfile-location'
-import { readFile } from 'fs/promises'
 import micoSpinner from 'mico-spinner'
 import { Worker } from 'worker_threads'
 import globby from 'globby'
@@ -42,7 +41,7 @@ async function parseTest(files) {
   let expects = []
   await Promise.all(
     files.map(async fileName => {
-      let source = (await readFile(fileName)).toString()
+      let source = (await fs.readFile(fileName)).toString()
       let prev, pos
       let lines = location(source)
       while (true) {
@@ -72,7 +71,7 @@ export async function check(
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
   if (existsSync(tsconfigPath)) {
-    let tsconfig = JSON.parse(await readFile(tsconfigPath))
+    let tsconfig = JSON.parse(await fs.readFile(tsconfigPath))
     compilerOptions = tsconfig.compilerOptions
   }
 
