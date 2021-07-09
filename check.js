@@ -47,7 +47,7 @@ async function parseTest(files) {
       while (true) {
         pos = source.indexOf(PREFIX, prev + 1)
         if (pos === -1) break
-        let newline = source.indexOf('\n', pos)
+        let newline = source.search(/\r?\n/, pos)
         let pattern = source.slice(pos + PREFIX.length, newline)
         let { line, column } = lines.toPoint(pos)
         expects.push({ fileName, line: line + 1, column, pattern })
