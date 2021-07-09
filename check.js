@@ -48,19 +48,7 @@ async function parseTest(files) {
         pos = source.indexOf(PREFIX, prev + 1)
         if (pos === -1) break
         let newline = source.slice(pos).search(/\r?\n/)
-
-        /*
-          To start searching `newline` value from a particular index (`pos`),
-          the part before the index is removed and the search is performed.
-          If the search was successful, it is necessary to add `pos` value to
-          the `newline` one to imitate, that the search was performed on the
-          full string.
-          If the search wasn't successful (`newline` === -1), keep it as is for
-          further usage.
-        */
-        if (newline !== -1) {
-          newline += pos
-        }
+        if (newline !== -1) newline += pos
 
         let pattern = source.slice(pos + PREFIX.length, newline)
         let { line, column } = lines.toPoint(pos)
