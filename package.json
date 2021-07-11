@@ -11,7 +11,7 @@
   "bin": "./bin.js",
   "type": "module",
   "engines": {
-    "node": ">=12.2.0"
+    "node": ">=12.16.0"
   },
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && yaspeller *.md"
