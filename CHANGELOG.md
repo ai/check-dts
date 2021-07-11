@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.3
+* Fixed `package.engines` (by @chenaski).
+
 ## 0.5.2
 * Fixed Windows support (by Vasilii Kovalev).
 
