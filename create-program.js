@@ -1,4 +1,10 @@
 import ts from 'typescript'
+import { createRequire } from 'module'
+import { dirname, join } from 'path'
+
+let require = createRequire(import.meta.url)
+
+const TS_DIR = dirname(require.resolve('typescript'))
 
 const DEFAULT = {
   allowSyntheticDefaultImports: true,
@@ -15,22 +21,23 @@ const DEFAULT = {
   jsx: 'react'
 }
 
-const KEY_TO_MODULE = {
-  none: ts.ModuleKind.None,
-  commonjs: ts.ModuleKind.CommonJS,
-  amd: ts.ModuleKind.AMD,
-  umd: ts.ModuleKind.UMD,
-  system: ts.ModuleKind.System,
-  es2015: ts.ModuleKind.ES2015,
-  es2020: ts.ModuleKind.ES2020,
-  esnext: ts.ModuleKind.ESNext
-}
-
 export function createProgram(files, opts = DEFAULT) {
-  opts.moduleResolution = ts.ModuleResolutionKind.NodeJs
-  if (typeof opts.module === 'string') {
-    opts.module = KEY_TO_MODULE[opts.module.toLowerCase()]
+  opts.moduleResolution = 'node'
+
+  let { options, errors } = ts.convertCompilerOptionsFromJson(opts, './')
+
+  if (errors.length) {
+    throw errors
   }
-  opts.noEmit = true
-  return ts.getPreEmitDiagnostics(ts.createProgram(files, opts))
+
+  if (options.lib) {
+    options.lib.forEach(path => {
+      files.push(join(TS_DIR, path))
+    })
+    options.lib.length = 0
+  }
+
+  options.noEmit = true
+
+  return ts.getPreEmitDiagnostics(ts.createProgram(files, options))
 }
