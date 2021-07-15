@@ -2,6 +2,9 @@
   "compilerOptions": {
     "target": "ES5",
     "experimentalDecorators": true,
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "lib": [
+      "ES2020.Promise"
+    ]
   }
 }
