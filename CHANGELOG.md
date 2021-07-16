@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.4
+* Fixed custom `tsconfig.json` support (by Vladimir Dementyev).
+
 ## 0.5.3
 * Fixed `package.engines` (by @chenaski).
 
