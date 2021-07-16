@@ -40,7 +40,7 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-unicorn": "^34.0.1",
     "jest": "^27.0.6",
-    "lint-staged": "^11.0.0",
+    "lint-staged": "^11.0.1",
     "prettier": "^2.3.2",
     "print-snapshots": "^0.3.2",
     "simple-git-hooks": "^2.5.1",
