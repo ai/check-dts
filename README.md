@@ -109,3 +109,18 @@ $ npx check-dts
   Expected: Expected 0 arguments, but got 1
   Got: Expected 3 arguments, but got 2.
 ```
+
+## CLI options
+
+```bash
+[FILES]    A list of files/globs, passed as 2nd, 3d, etc. argument. Default value: **/*.{js,ts,jsx,tsx}
+--version  Show version
+--help     Show list of CLI options
+```
+
+Examples of `[FILES]` option usage:
+
+```bash
+$ npx check-dts **/*.tsx?
+$ npx check-dts **/*.ts !**/index.ts
+```
