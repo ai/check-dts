@@ -110,7 +110,7 @@ $ npx check-dts
   Got: Expected 3 arguments, but got 2.
 ```
 
-## CLI options
+## CLI Options
 
 ```bash
 [FILES]    A list of files/globs, passed as 2nd, 3d, etc. argument. Default value: **/*.{js,ts,jsx,tsx}
