@@ -19,7 +19,7 @@
   "dependencies": {
     "colorette": "^1.2.2",
     "globby": "^11.0.4",
-    "mico-spinner": "^1.1.1",
+    "mico-spinner": "^1.2.2",
     "typescript": "^4.3.5",
     "vfile-location": "^4.0.1"
   },
