@@ -105,7 +105,10 @@ export async function check(
   }
 
   for (let i of errors) {
-    if (!i.file) continue // unsupported files
+    if (i.messageText.code === 6504 || i.messageText.code === 6054) {
+      // Unsupported files
+      continue
+    }
     let { line, column } = location(i.file.text).toPoint(i.start)
     let expect = expects.find(j => {
       return i.file.fileName === j.fileName && line === j.line && !j.used
