@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.5
+* Fixed for missed `allowJs` in custom `tsconfig.json`.
+
 ## 0.5.4
 * Fixed custom `tsconfig.json` support (by Vladimir Dementyev).
 
