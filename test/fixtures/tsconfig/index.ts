@@ -1,14 +1,14 @@
-function sealed (target: any) {
-  target.seal = 'seal'
+import b from './b.js'
+
+function sealed(target: any) {
+  target.seal = 'seal' + b
 }
 
-function all(p1: Promise<void>, p2: Promise<void>) {
+export function all(p1: Promise<void>, p2: Promise<void>) {
   return Promise.allSettled([p1, p2])
 }
 
 @sealed
-class A {
-
-}
+class A {}
 
 export default A
