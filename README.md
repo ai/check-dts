@@ -112,13 +112,14 @@ $ npx check-dts
 
 ## CLI Options
 
+Test all `.ts` and `.js` files in project and run `*.types.ts` and `*.errors.ts`
+tests:
+
 ```bash
-[FILES]    A list of files/globs, passed as 2nd, 3d, etc. argument. Default value: **/*.{js,ts,jsx,tsx}
---version  Show version
---help     Show list of CLI options
+$ npx check-dts
 ```
 
-Examples of `[FILES]` option usage:
+You can test only specific files by:
 
 ```bash
 $ npx check-dts **/*.tsx?
