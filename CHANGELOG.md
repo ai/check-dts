@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5.6
+* Replaced `coloretter` dependency with `nanocolors`.
+
 ## 0.5.5
 * Fixed for missed `allowJs` in custom `tsconfig.json`.
 
