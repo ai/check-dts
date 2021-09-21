@@ -1,4 +1,4 @@
-import { red as r, bold as b, green as g, gray, white } from 'colorette'
+import { red as r, bold as b, green as g, gray, white } from 'nanocolors'
 import { dirname, basename, join, relative } from 'path'
 import { existsSync, promises as fs } from 'fs'
 import { createRequire } from 'module'

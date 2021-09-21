@@ -1,4 +1,4 @@
-import { yellow as y, bold as b } from 'colorette'
+import { yellow as y, bold as b } from 'nanocolors'
 
 export function showHelp(print) {
   print(

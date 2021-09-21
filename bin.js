@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { red } from 'colorette'
+import { red } from 'nanocolors'
 
 import { showVersion } from './show-version.js'
 import { showHelp } from './show-help.js'

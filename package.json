@@ -17,9 +17,9 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && yaspeller *.md"
   },
   "dependencies": {
-    "colorette": "^1.2.2",
     "globby": "^11.0.4",
     "mico-spinner": "^1.2.2",
+    "nanocolors": "^0.1.0",
     "typescript": "^4.4.3",
     "vfile-location": "^4.0.1"
   },
