@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'url'
 import { readFileSync } from 'fs'
-import { bold } from 'nanocolors'
 import { join } from 'path'
+import pico from 'picocolors'
 
 export function showVersion(print) {
   let pkg = readFileSync(
     join(fileURLToPath(import.meta.url), '..', 'package.json')
   )
-  print(`check-dts ${bold(JSON.parse(pkg).version)}`)
+  print(`check-dts ${pico.bold(JSON.parse(pkg).version)}`)
 }

@@ -1,4 +1,3 @@
-import { red as r, bold as b, green as g, gray, white } from 'nanocolors'
 import { dirname, basename, join, relative } from 'path'
 import { existsSync, promises as fs } from 'fs'
 import { createRequire } from 'module'
@@ -7,8 +6,13 @@ import { location } from 'vfile-location'
 import micoSpinner from 'mico-spinner'
 import { Worker } from 'worker_threads'
 import globby from 'globby'
+import pico from 'picocolors'
 
 let require = createRequire(import.meta.url)
+
+let r = pico.red
+let b = pico.bold
+let g = pico.green
 
 const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
@@ -34,7 +38,7 @@ function getText(error) {
 }
 
 function formatName(cwd, file, color) {
-  return gray(relative(cwd, file).replace(basename(file), i => color(i)))
+  return pico.gray(relative(cwd, file).replace(basename(file), i => color(i)))
 }
 
 async function parseTest(files) {
@@ -120,7 +124,10 @@ export async function check(
     if (!failTests.includes(i.file.fileName)) {
       push(
         i.fileName,
-        prefix + b(' Type error ' + gray(`TS${i.code}`) + '\n') + '  ' + r(text)
+        prefix +
+          b(' Type error ' + pico.gray(`TS${i.code}`) + '\n') +
+          '  ' +
+          r(text)
       )
     } else if (!expect) {
       push(i.fileName, prefix + b(' Unexpected error\n') + '  ' + r(text))
@@ -169,7 +176,7 @@ export async function check(
   } else {
     spinner.succeed()
     for (let i of typeTests) {
-      print(g('✔ ') + formatName(cwd, i, white))
+      print(g('✔ ') + formatName(cwd, i, pico.white))
     }
     return true
   }

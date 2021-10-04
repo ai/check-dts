@@ -3275,7 +3275,7 @@ multimap@^1.1.0:
   resolved "https://registry.yarnpkg.com/multimap/-/multimap-1.1.0.tgz#5263febc085a1791c33b59bb3afc6a76a2a10ca8"
   integrity sha512-0ZIR9PasPxGXmRsEF8jsDzndzHDj7tIav+JUmvIFB/WHswliFnquxECT/De7GR4yg99ky/NlRKJT82G1y271bw==
 
-nanocolors@^0.1.0, nanocolors@^0.1.1:
+nanocolors@^0.1.1:
   version "0.1.12"
   resolved "https://registry.yarnpkg.com/nanocolors/-/nanocolors-0.1.12.tgz#8577482c58cbd7b5bb1681db4cf48f11a87fd5f6"
   integrity sha512-2nMHqg1x5PU+unxX7PGY7AuYxl2qDx7PSrTRjizr8sxdd3l/3hBuWWaki62qmtYm2U5i4Z5E7GbjlyDFhs9/EQ==
@@ -3530,6 +3530,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+picocolors@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-0.2.1.tgz#570670f793646851d1ba135996962abad587859f"
+  integrity sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==
+
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.2.3:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.0.tgz#f1f061de8f6a4bf022892e2d128234fb98302972"
@@ -3605,15 +3610,15 @@ pretty-format@^27.2.4:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
-print-snapshots@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/print-snapshots/-/print-snapshots-0.4.0.tgz#4d52bed1aca0e0a4662b167540e56037c1a10e4e"
-  integrity sha512-p+sXIwNDYYAAsbNWAJuSbKpe2yaPcDeC2JUs1Wq+CR3ey7SuIqPEDYVo73txDWaOH/sohwmBQX+KBp+401UXtQ==
+print-snapshots@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/print-snapshots/-/print-snapshots-0.4.1.tgz#66c49b7d69fc4fc883b613dc961c6233ae157732"
+  integrity sha512-Tt7VXetfL/W8AAOjpBDLVOl3j+Dd4IweqS4eN8or1pJo4prokxS+5U/G9pIgofzwEltlbS7oepQi1asCw6P7+w==
   dependencies:
     chokidar "^3.5.2"
     fast-glob "^3.2.7"
-    nanocolors "^0.1.0"
     parse-gitignore "^1.0.1"
+    picocolors "^0.2.1"
 
 progress@^2.0.0:
   version "2.0.3"
