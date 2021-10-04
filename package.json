@@ -81,6 +81,9 @@
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
+  "clean-publish": {
+    "cleanDocs": true
+  },
   "yaspeller": {
     "lang": "en",
     "ignoreCapitalization": true,
