@@ -2,8 +2,8 @@ import { dirname, basename, join, relative } from 'path'
 import { existsSync, promises as fs } from 'fs'
 import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
+import { createSpinner } from 'nanospinner'
 import { location } from 'vfile-location'
-import micoSpinner from 'mico-spinner'
 import { Worker } from 'worker_threads'
 import globby from 'globby'
 import pico from 'picocolors'
@@ -65,14 +65,12 @@ async function parseTest(files) {
 }
 
 export async function check(
-  stdout,
+  stderr,
   cwd,
   print,
   globs = ['**/*.{js,ts,jsx,tsx}']
 ) {
-  let spinner = micoSpinner('Check types', { stream: stdout }).start(
-    'Check types'
-  )
+  let spinner = createSpinner('Check types', { stream: stderr })
 
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
@@ -160,7 +158,7 @@ export async function check(
 
   let failed = Object.keys(bad).length > 0
   if (failed) {
-    spinner.fail()
+    spinner.error()
     print('')
     for (let file in bad) {
       let messages = (bad[file] || []).sort((msg1, msg2) => {
@@ -174,7 +172,7 @@ export async function check(
     }
     return false
   } else {
-    spinner.succeed()
+    spinner.success()
     for (let i of typeTests) {
       print(g('✔ ') + formatName(cwd, i, pico.white))
     }

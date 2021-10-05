@@ -21,11 +21,11 @@ async function run() {
   } else if (arg === '--help') {
     showHelp(print)
   } else if (!arg) {
-    let result = await check(process.stdout, process.cwd(), print)
+    let result = await check(process.stderr, process.cwd(), print)
     if (!result) process.exit(1)
   } else {
     let result = await check(
-      process.stdout,
+      process.stderr,
       process.cwd(),
       print,
       process.argv.slice(2)

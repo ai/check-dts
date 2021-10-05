@@ -1,14 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`accepts files 1`] = `
-"[33m-[39m Check types
-[32m✔[39m Check types
+"[2K[1G[32m✔[39m Check types
 "
 `;
 
 exports[`checks both tests 1`] = `
-"[33m-[39m Check types
-[31m✖[39m Check types
+"[2K[1G[31m✖[39m Check types
 
 [31m✖ [90mtest/[31ma.types.ts[90m[31m:3:10:[39m[1m Type error [90mTS2345[39m
 [22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
@@ -35,16 +33,14 @@ exports[`checks both tests 1`] = `
 `;
 
 exports[`checks mixed tests 1`] = `
-"[33m-[39m Check types
-[32m✔[39m Check types
+"[2K[1G[32m✔[39m Check types
 [32m✔ [39m[90ma/[37merrors.ts[90m[39m
 [32m✔ [39m[90ma/[37mtypes.ts[90m[39m
 "
 `;
 
 exports[`checks negative tests 1`] = `
-"[33m-[39m Check types
-[31m✖[39m Check types
+"[2K[1G[31m✖[39m Check types
 
 [31m✖ [90m[31ma.d.ts[90m[31m:1:18:[39m[1m Type error [90mTS7010[39m
 [22m  [31m'a', which lacks return-type annotation, implicitly has an 'any' return type.[39m
@@ -71,8 +67,7 @@ exports[`checks negative tests 1`] = `
 `;
 
 exports[`checks positive tests 1`] = `
-"[33m-[39m Check types
-[31m✖[39m Check types
+"[2K[1G[31m✖[39m Check types
 
 [31m✖ [90mtest/[31mtypes.ts[90m[31m:3:14:[39m[1m Type error [90mTS2345[39m
 [22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
@@ -85,15 +80,13 @@ exports[`checks positive tests 1`] = `
 `;
 
 exports[`loads custom tsconfig.json 1`] = `
-"[33m-[39m Check types
-[32m✔[39m Check types
+"[2K[1G[32m✔[39m Check types
 [32m✔ [39m[90m[37mtypes.ts[90m[39m
 "
 `;
 
 exports[`supports simple cases 1`] = `
-"[33m-[39m Check types
-[32m✔[39m Check types
+"[2K[1G[32m✔[39m Check types
 [32m✔ [39m[90mtest/[37merrors.ts[90m[39m
 [32m✔ [39m[90mtest/[37mtypes.ts[90m[39m
 "

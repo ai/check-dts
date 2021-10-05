@@ -2,21 +2,22 @@ import { fileURLToPath } from 'url'
 import { join, dirname } from 'path'
 import { jest } from '@jest/globals'
 
+import './fixtures/ci.js'
 import { check } from '../check.js'
 
 const ROOT = dirname(fileURLToPath(import.meta.url))
 
 async function run(fixture, args) {
-  let stdout = { out: '' }
-  stdout.write = symbols => {
-    stdout.out += symbols
+  let out = { text: '' }
+  out.write = symbols => {
+    out.text += symbols
   }
-  stdout.print = (...lines) => {
-    stdout.write(lines.join('\n') + '\n')
+  out.print = (...lines) => {
+    out.write(lines.join('\n') + '\n')
   }
   let cwd = join(ROOT, 'fixtures', fixture)
-  let exitCode = await check(stdout, cwd, stdout.print, args)
-  return [exitCode, stdout.out]
+  let exitCode = await check(out, cwd, out.print, args)
+  return [exitCode, out.text]
 }
 
 async function good(fixture, args) {
