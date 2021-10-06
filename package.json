@@ -16,11 +16,13 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && yaspeller *.md"
   },
+  "peerDependencies": {
+    "typescript": "^4.4.3"
+  },
   "dependencies": {
     "globby": "^11.0.4",
     "nanospinner": "^0.2.1",
     "picocolors": "^0.2.1",
-    "typescript": "^4.4.3",
     "vfile-location": "^4.0.1"
   },
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
@@ -44,6 +46,7 @@
     "prettier": "^2.4.1",
     "print-snapshots": "^0.4.1",
     "simple-git-hooks": "^2.6.1",
+    "typescript": "^4.4.3",
     "yaspeller": "^7.0.0"
   },
   "eslintConfig": {
