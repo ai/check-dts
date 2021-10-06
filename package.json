@@ -30,8 +30,8 @@
   "repository": "ai/check-dts",
   "devDependencies": {
     "@logux/eslint-config": "^45.4.8",
-    "@logux/sharec-config": "^0.11.0",
-    "clean-publish": "^3.0.3",
+    "@logux/sharec-config": "^0.12.2",
+    "clean-publish": "^3.1.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
@@ -107,6 +107,6 @@
   },
   "sharec": {
     "config": "@logux/sharec-config",
-    "version": "0.11.0"
+    "version": "0.12.2"
   }
 }
