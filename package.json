@@ -20,7 +20,7 @@
     "typescript": "^4.4.3"
   },
   "dependencies": {
-    "globby": "^11.0.4",
+    "fast-glob": "^3.2.7",
     "nanospinner": "^0.2.1",
     "picocolors": "^0.2.1",
     "vfile-location": "^4.0.1"

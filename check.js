@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 import { createSpinner } from 'nanospinner'
 import { location } from 'vfile-location'
 import { Worker } from 'worker_threads'
-import globby from 'globby'
 import pico from 'picocolors'
+import glob from 'fast-glob'
 
 let require = createRequire(import.meta.url)
 
@@ -79,8 +79,7 @@ export async function check(
     compilerOptions = tsconfig.compilerOptions
   }
 
-  let opts = { cwd, ignore: ['node_modules'], gitignore: true, absolute: true }
-  let all = await globby(globs, opts)
+  let all = await glob(globs, { cwd, ignore: ['node_modules'], absolute: true })
 
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
