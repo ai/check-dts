@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.1
+* Fix `typescript` peer dependencies.
+
 ## 0.6
 * Moved TypeScript to peer dependencies.
 * Replaced `nanocolors` dependency with `picocolors`.
