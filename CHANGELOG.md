@@ -1,6 +1,12 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6
+* Moved TypeScript to peer dependencies.
+* Replaced `nanocolors` dependency with `picocolors`.
+* Replaced `mico-spinner` dependency with `nanospinner`.
+* Reduced dependencies by moving from `globby` to `fast-glob`.
+
 ## 0.5.6
 * Replaced `coloretter` dependency with `nanocolors`.
 
