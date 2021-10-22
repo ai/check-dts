@@ -71,6 +71,7 @@ export async function check(
   globs = ['**/*.{js,ts,jsx,tsx}']
 ) {
   let spinner = createSpinner('Check types', { stream: stderr })
+  spinner.start()
 
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
