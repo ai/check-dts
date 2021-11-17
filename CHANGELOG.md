@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.4
+* Fixed TypeScript 4.5 support.
+
 ## 0.6.3
 * Updated `nanospinner`.
 
