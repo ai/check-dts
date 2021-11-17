@@ -106,34 +106,34 @@ export async function check(
     bad[file].push(message)
   }
 
-  for (let i of errors) {
-    if (i.messageText.code === 6504 || i.messageText.code === 6054) {
+  for (let error of errors) {
+    if (error.messageText.code === 6504 || error.messageText.code === 6054) {
       // Unsupported files
       continue
     }
-    let { line, column } = location(i.file.text).toPoint(i.start)
+    let { line, column } = location(error.file.text).toPoint(error.start)
     let expect = expects.find(j => {
-      return i.file.fileName === j.fileName && line === j.line && !j.used
+      return error.file.fileName === j.fileName && line === j.line && !j.used
     })
     let prefix = r(
-      `✖ ${formatName(cwd, i.file.fileName, r)}:${line}:${column}:`
+      `✖ ${formatName(cwd, error.file.fileName, r)}:${line}:${column}:`
     )
-    let text = getText(i)
-    if (!failTests.includes(i.file.fileName)) {
+    let text = getText(error)
+    if (!failTests.includes(error.file.fileName)) {
       push(
-        i.fileName,
+        error.fileName,
         prefix +
-          b(' Type error ' + pico.gray(`TS${i.code}`) + '\n') +
+          b(' Type error ' + pico.gray(`TS${error.code}`) + '\n') +
           '  ' +
           r(text)
       )
     } else if (!expect) {
-      push(i.fileName, prefix + b(' Unexpected error\n') + '  ' + r(text))
+      push(error.fileName, prefix + b(' Unexpected error\n') + '  ' + r(text))
     } else {
       expect.used = true
       if (!text.includes(expect.pattern)) {
         push(
-          i.fileName,
+          error.fileName,
           prefix +
             b(' Wrong error\n') +
             '  Expected: ' +
