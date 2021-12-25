@@ -14,7 +14,7 @@
     "node": ">=12.16.0"
   },
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint ."
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage && eslint ."
   },
   "peerDependencies": {
     "typescript": ">=4.0.0"
