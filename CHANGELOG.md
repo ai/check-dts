@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6.7
+* Updated `nanospinner`.
+
 ## 0.6.6
 * Updated `nanospinner`.
 
