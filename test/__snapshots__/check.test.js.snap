@@ -14,7 +14,7 @@ exports[`checks both tests 1`] = `
 [22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 [31m✖ [90mtest/[31ma.errors.ts[90m[31m:4:10:[39m[1m Wrong error
-[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+[22m  Expected: [32mArgument of type '"1"' is not assignable to parameter of type 'number'.[39m
   Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:9:7:[39m[1m Wrong error
@@ -25,8 +25,8 @@ exports[`checks both tests 1`] = `
 [22m  [31mExpected 1 arguments, but got 2.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:15:12:[39m[1m Wrong error
-[22m  Expected: [32mnot assignable to parameter of type '\\"set\\" | \\"tick\\"'[39m
-  Got: [31mArgument of type '\\"unknown\\"' is not assignable to parameter of type 'keyof Events'.[39m
+[22m  Expected: [32mnot assignable to parameter of type '"set" | "tick"'[39m
+  Got: [31mArgument of type '"unknown"' is not assignable to parameter of type 'keyof Events'.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:11:1:[39m[1m Error was not found
 [22m  [31mMissed[39m
@@ -50,7 +50,7 @@ exports[`checks negative tests 1`] = `
 [22m  [31m'a', which lacks return-type annotation, implicitly has an 'any' return type.[39m
 
 [31m✖ [90mtest/[31ma.errors.ts[90m[31m:4:10:[39m[1m Wrong error
-[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+[22m  Expected: [32mArgument of type '"1"' is not assignable to parameter of type 'number'.[39m
   Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:9:7:[39m[1m Wrong error
@@ -61,8 +61,8 @@ exports[`checks negative tests 1`] = `
 [22m  [31mExpected 1 arguments, but got 2.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:15:12:[39m[1m Wrong error
-[22m  Expected: [32mnot assignable to parameter of type '\\"set\\" | \\"tick\\"'[39m
-  Got: [31mArgument of type '\\"unknown\\"' is not assignable to parameter of type 'keyof Events'.[39m
+[22m  Expected: [32mnot assignable to parameter of type '"set" | "tick"'[39m
+  Got: [31mArgument of type '"unknown"' is not assignable to parameter of type 'keyof Events'.[39m
 
 [31m✖ [90mtest/[31mb.errors.ts[90m[31m:11:1:[39m[1m Error was not found
 [22m  [31mMissed[39m
@@ -78,7 +78,7 @@ exports[`checks positive tests 1`] = `
 [22m  [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 [31m✖ [90mtest/[31merrors.ts[90m[31m:4:14:[39m[1m Wrong error
-[22m  Expected: [32mArgument of type '\\"1\\"' is not assignable to parameter of type 'number'.[39m
+[22m  Expected: [32mArgument of type '"1"' is not assignable to parameter of type 'number'.[39m
   Got: [31mArgument of type 'string' is not assignable to parameter of type 'number'.[39m
 
 "
