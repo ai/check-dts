@@ -1,4 +1,5 @@
 {
+  // tsconfig should support comments
   "compilerOptions": {
     "target": "ES5",
     "experimentalDecorators": true,
@@ -6,5 +7,5 @@
     "lib": [
       "ES2020.Promise"
     ]
-  }
+  }, // tsconfig should support trailing commas
 }
