@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7
+* Removed Node.js 12 support.
+* Fixed comments support in `tsconfig.json` (by @shrpne).
+
 ## 0.6.7
 * Updated `nanospinner`.
 
