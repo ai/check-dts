@@ -7,6 +7,7 @@ import { location } from 'vfile-location'
 import { Worker } from 'worker_threads'
 import pico from 'picocolors'
 import glob from 'fast-glob'
+import JSON5 from 'json5'
 
 let require = createRequire(import.meta.url)
 
@@ -76,7 +77,7 @@ export async function check(
   let compilerOptions
   let tsconfigPath = join(cwd, 'tsconfig.json')
   if (existsSync(tsconfigPath)) {
-    let tsconfig = JSON.parse(await fs.readFile(tsconfigPath))
+    let tsconfig = JSON5.parse(await fs.readFile(tsconfigPath))
     compilerOptions = tsconfig.compilerOptions
   }
 
