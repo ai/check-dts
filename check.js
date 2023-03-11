@@ -75,7 +75,7 @@ export async function check(
   let spinner = createSpinner('Check types', { stream: stderr })
   spinner.start()
 
-  let compilerOptions = await getCompilerOptions(cwd)
+  let compilerOptions = getCompilerOptions(cwd)
 
   let all = await glob(globs, { cwd, ignore: ['node_modules'], absolute: true })
 

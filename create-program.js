@@ -6,34 +6,13 @@ let require = createRequire(import.meta.url)
 
 const TS_DIR = dirname(require.resolve('typescript'))
 
-const DEFAULT = {
-  allowSyntheticDefaultImports: true,
-  strictFunctionTypes: false,
-  noUnusedParameters: true,
-  noImplicitReturns: true,
-  moduleResolution: 'NodeJs',
-  noUnusedLocals: true,
-  stripInternal: true,
-  allowJs: true,
-  module: 'esnext',
-  strict: true,
-  noEmit: true,
-  jsx: 'react'
-}
-
-export function createProgram(files, opts = DEFAULT) {
-  opts.moduleResolution = 'node'
-
-  let { options, errors } = ts.convertCompilerOptionsFromJson(opts, './')
-
-  if (errors.length) {
-    throw errors
-  }
+export function createProgram(files, options) {
+  options.moduleResolution = ts.ModuleResolutionKind.NodeJs
 
   if (options.lib) {
-    options.lib.forEach(path => {
+    for (let path of options.lib) {
       files.push(join(TS_DIR, path))
-    })
+    }
     options.lib.length = 0
   }
 

@@ -1,13 +1,37 @@
-import { join } from 'path'
-import { existsSync, promises as fs } from 'fs'
-import JSON5 from "json5";
+import ts from 'typescript'
 
-export async function getCompilerOptions(cwd) {
-  let compilerOptions
-  let tsconfigPath = join(cwd, 'tsconfig.json')
-  if (existsSync(tsconfigPath)) {
-    let tsconfig = JSON5.parse(await fs.readFile(tsconfigPath))
-    compilerOptions = tsconfig.compilerOptions
+
+const DEFAULT_OPTIONS = ts.convertCompilerOptionsFromJson({
+    allowSyntheticDefaultImports: true,
+    strictFunctionTypes: false,
+    noUnusedParameters: true,
+    noImplicitReturns: true,
+    moduleResolution: 'NodeJs',
+    noUnusedLocals: true,
+    stripInternal: true,
+    allowJs: true,
+    module: 'esnext',
+    strict: true,
+    noEmit: true,
+    jsx: 'react'
   }
-  return compilerOptions;
+  , './').options
+
+export function getCompilerOptions(cwd, configName = "tsconfig.json") {
+  let configFileName = ts.findConfigFile(
+    cwd,
+    ts.sys.fileExists,
+    configName
+  );
+  if (configFileName === undefined) {
+    // there is at least one test that relay on default params
+    return DEFAULT_OPTIONS;
+  }
+  let configFile = ts.readConfigFile(configFileName, ts.sys.readFile);
+  let parsedCommandLine = ts.parseJsonConfigFileContent(
+    configFile.config,
+    ts.sys,
+    cwd,
+  );
+  return parsedCommandLine.options;
 }
