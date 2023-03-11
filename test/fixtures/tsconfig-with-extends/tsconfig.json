@@ -1,6 +1,6 @@
 {
   // tsconfig should support extends
-  "extends": "./node18-strictest/tsconfig.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "noUnusedLocals": false,
     "target": "ES5",
