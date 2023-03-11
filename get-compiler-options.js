@@ -24,7 +24,6 @@ export function getCompilerOptions(cwd, configName = "tsconfig.json") {
     configName
   );
   if (configFileName === undefined) {
-    // there is at least one test that relay on default params
     return DEFAULT_OPTIONS;
   }
   let configFile = ts.readConfigFile(configFileName, ts.sys.readFile);
