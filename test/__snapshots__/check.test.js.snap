@@ -91,6 +91,13 @@ exports[`loads custom tsconfig.json 1`] = `
 "
 `;
 
+exports[`loads custom tsconfig.json with extends property 1`] = `
+"[33m-[39m Check types
+[32m✔[39m Check types
+[32m✔ [39m[90m[37mindex.errors.ts[90m[39m
+"
+`;
+
 exports[`supports simple cases 1`] = `
 "[33m-[39m Check types
 [32m✔[39m Check types

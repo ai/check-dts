@@ -1,0 +1,13 @@
+{
+  // tsconfig should support extends
+  "extends": "./node18-strictest/tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "target": "ES5",
+    "experimentalDecorators": true,
+    "moduleResolution": "Node",
+    "lib": [
+      "ES2020.Promise"
+    ]
+  },
+}
