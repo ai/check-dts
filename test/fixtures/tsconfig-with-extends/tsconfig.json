@@ -4,10 +4,6 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "target": "ES5",
-    "experimentalDecorators": true,
     "moduleResolution": "Node",
-    "lib": [
-      "ES2020.Promise"
-    ]
   },
 }
