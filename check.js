@@ -1,5 +1,5 @@
 import { dirname, basename, join, relative } from 'path'
-import { existsSync, promises as fs } from 'fs'
+import { promises as fs } from 'fs'
 import { createRequire } from 'module'
 import { fileURLToPath } from 'url'
 import { createSpinner } from 'nanospinner'
@@ -7,7 +7,8 @@ import { location } from 'vfile-location'
 import { Worker } from 'worker_threads'
 import pico from 'picocolors'
 import glob from 'fast-glob'
-import JSON5 from 'json5'
+
+import { getCompilerOptions } from "./get-compiler-options.js";
 
 let require = createRequire(import.meta.url)
 
@@ -74,12 +75,7 @@ export async function check(
   let spinner = createSpinner('Check types', { stream: stderr })
   spinner.start()
 
-  let compilerOptions
-  let tsconfigPath = join(cwd, 'tsconfig.json')
-  if (existsSync(tsconfigPath)) {
-    let tsconfig = JSON5.parse(await fs.readFile(tsconfigPath))
-    compilerOptions = tsconfig.compilerOptions
-  }
+  let compilerOptions = await getCompilerOptions(cwd)
 
   let all = await glob(globs, { cwd, ignore: ['node_modules'], absolute: true })
 
