@@ -58,6 +58,10 @@ it('loads custom tsconfig.json', async () => {
   expect(await good('tsconfig')).toMatchSnapshot()
 })
 
+it('loads custom tsconfig.json with extends property', async () => {
+  expect(await good('tsconfig-with-extends')).toMatchSnapshot()
+})
+
 it('accepts files', async () => {
   expect(await good('negative', 'b.*')).toMatchSnapshot()
 })

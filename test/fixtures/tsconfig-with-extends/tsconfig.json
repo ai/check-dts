@@ -1,0 +1,9 @@
+{
+  // tsconfig should support extends
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "target": "ES5",
+    "moduleResolution": "Node"
+  }
+}
