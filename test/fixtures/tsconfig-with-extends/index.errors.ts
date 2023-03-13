@@ -1,4 +1,4 @@
-declare const a: number | null;
+declare const a: number | null
 
 // THROWS Type 'number | null' is not assignable to type 'number'.
 export const b: number = a

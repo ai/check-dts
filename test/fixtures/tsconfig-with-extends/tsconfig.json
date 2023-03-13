@@ -4,6 +4,6 @@
   "compilerOptions": {
     "noUnusedLocals": false,
     "target": "ES5",
-    "moduleResolution": "Node",
-  },
+    "moduleResolution": "Node"
+  }
 }

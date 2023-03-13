@@ -8,7 +8,7 @@ import { Worker } from 'worker_threads'
 import pico from 'picocolors'
 import glob from 'fast-glob'
 
-import { getCompilerOptions } from "./get-compiler-options.js";
+import { getCompilerOptions } from './get-compiler-options.js'
 
 let require = createRequire(import.meta.url)
 
