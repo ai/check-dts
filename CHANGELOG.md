@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.1
+* Fixed support of `extends` in `tsconfig.json` (by Bijela Gora).
+
 ## 0.7
 * Removed Node.js 12 support.
 * Fixed comments support in `tsconfig.json` (by @shrpne).
