@@ -29,7 +29,7 @@
   "license": "MIT",
   "repository": "ai/check-dts",
   "devDependencies": {
-    "@babel/core": "^7.21.0",
+    "@babel/core": "^7.21.3",
     "@logux/eslint-config": "^49.0.0",
     "clean-publish": "^4.1.1",
     "eslint": "^8.36.0",
@@ -40,7 +40,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "jest": "^29.5.0",
     "print-snapshots": "^0.4.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.2"
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config",
