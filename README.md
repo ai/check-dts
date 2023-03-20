@@ -115,15 +115,15 @@ $ npx check-dts
 Test all `.ts` and `.js` files in project and run `*.types.ts` and `*.errors.ts`
 tests:
 
-```bash
-$ npx check-dts
+```bashsh
+npx check-dts
 ```
 
 You can test only specific files by:
 
-```bash
-$ npx check-dts **/*.tsx?
-$ npx check-dts **/*.ts !**/index.ts
+```sh
+npx check-dts **/*.tsx?
+npx check-dts **/*.ts !**/index.ts
 ```
 
 ## FAQ
@@ -140,5 +140,5 @@ Yes you can. But note if you have the typescript in your project
 you can validate whether `d.ts`-files have some issues with the following command:
 
 ```sh
-$ npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
+npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
 ```
