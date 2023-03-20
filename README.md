@@ -125,3 +125,14 @@ You can test only specific files by:
 $ npx check-dts **/*.tsx?
 $ npx check-dts **/*.ts !**/index.ts
 ```
+
+## FAQ
+
+Q: It seems that check-dts ignores all d.ts-files. How can I fix this?
+A: Please make sure that your tsconfig.json doesn't include `skipLibCheck: true`.
+Becuase with this [option](https://www.typescriptlang.org/tsconfig#skipLibCheck) all d.ts-files will be ignored.
+
+Q: Can I use check-dts as a simple validator for d.ts-files?
+A: Yes you can. But note if you have the typescript in your project
+you can validate whether d.ts-files have some issues with the following command:
+`npx tsc path/to/your/dts/files/**/*.d.ts --noEmit`
