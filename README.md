@@ -130,7 +130,7 @@ $ npx check-dts **/*.ts !**/index.ts
 
 ### It seems that check-dts ignores all d.ts-files. How can I fix this?
 
-Please make sure that your tsconfig.json doesn't include `skipLibCheck: true`.
+Please make sure that your tsconfig.json doesn’t include `skipLibCheck: true`.
 Becuase with this [option](https://www.typescriptlang.org/tsconfig#skipLibCheck)
 all `d.ts`-files will be ignored.
 
