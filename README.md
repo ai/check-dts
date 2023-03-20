@@ -137,7 +137,7 @@ all `d.ts`-files will be ignored.
 ### Can I use check-dts as a simple validator for d.ts-files?
 
 Yes you can. But note if you have the typescript in your project
-you can validate whether d.ts-files have some issues with the following command:
+you can validate whether `d.ts`-files have some issues with the following command:
 
 ```sh
 $ npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
