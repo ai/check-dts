@@ -142,3 +142,32 @@ you can validate whether `d.ts`-files have some issues with the following comman
 ```sh
 npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
 ```
+
+### I am getting an error **from Node types**, how do I skip `node_modules`?
+
+If you are getting an error that looks something like this:
+
+```
+✖ node_modules/@types/node/globals.d.ts:68:13: Type error TS2502
+  'AbortController' is referenced directly or indirectly in its own type annotation.
+✖ node_modules/@types/node/globals.d.ts:75:13: Type error TS2502
+  'AbortSignal' is referenced directly or indirectly in its own type annotation.
+```
+
+You can skip the whole `node_modules` folder by specifying the options in `tsconfig.json`:
+
+```json
+{
+  "exclude": ["node_modules"]
+}
+```
+
+Or
+
+```json
+{
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}
+```
