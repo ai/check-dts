@@ -161,3 +161,13 @@ You can skip the whole `node_modules` folder by specifying the options in `tscon
   "exclude": ["node_modules"]
 }
 ```
+
+Or
+
+```json
+{
+  "compilerOptions": {
+    "skipLibCheck": true
+  }
+}
+```
