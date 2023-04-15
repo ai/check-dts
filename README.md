@@ -143,7 +143,7 @@ you can validate whether `d.ts`-files have some issues with the following comman
 npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
 ```
 
-### I am getting an error *from Node types*, how do I skip node_modules?
+### I am getting an error **from Node types**, how do I skip `node_modules`?
 
 If you are getting an error that looks something like this:
 
