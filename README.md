@@ -110,6 +110,7 @@ $ npx check-dts
   Got: Expected 3 arguments, but got 2.
 ```
 
+
 ## CLI Options
 
 Test all `.ts` and `.js` files in project and run `*.types.ts` and `*.errors.ts`
@@ -126,6 +127,7 @@ npx check-dts **/*.tsx?
 npx check-dts **/*.ts !**/index.ts
 ```
 
+
 ## FAQ
 
 ### It seems that check-dts ignores all d.ts-files. How can I fix this?
@@ -133,6 +135,7 @@ npx check-dts **/*.ts !**/index.ts
 Please make sure that your tsconfig.json doesn’t include `skipLibCheck: true`.
 Becuase with this [option](https://www.typescriptlang.org/tsconfig#skipLibCheck)
 all `d.ts`-files will be ignored.
+
 
 ### Can I use check-dts as a simple validator for d.ts-files?
 
@@ -143,6 +146,7 @@ you can validate whether `d.ts`-files have some issues with the following comman
 npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
 ```
 
+
 ### I am getting an error **from Node types**, how do I skip `node_modules`?
 
 If you are getting an error that looks something like this:
@@ -150,19 +154,10 @@ If you are getting an error that looks something like this:
 ```
 ✖ node_modules/@types/node/globals.d.ts:68:13: Type error TS2502
   'AbortController' is referenced directly or indirectly in its own type annotation.
-✖ node_modules/@types/node/globals.d.ts:75:13: Type error TS2502
-  'AbortSignal' is referenced directly or indirectly in its own type annotation.
 ```
 
-You can skip the whole `node_modules` folder by specifying the options in `tsconfig.json`:
+You can skip the whole `node_modules` by adding to `tsconfig.json`:
 
-```json
-{
-  "exclude": ["node_modules"]
-}
-```
-
-Or
 
 ```json
 {
