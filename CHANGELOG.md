@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7.2
+* Fix rare TypeScript errors support (by Brian Takita).
+
 ## 0.7.1
 * Fixed support of `extends` in `tsconfig.json` (by Bijela Gora).
 
