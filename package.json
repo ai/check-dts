@@ -29,10 +29,10 @@
   "license": "MIT",
   "repository": "ai/check-dts",
   "devDependencies": {
-    "@babel/core": "^7.21.4",
+    "@babel/core": "^7.21.5",
     "@logux/eslint-config": "^49.0.0",
     "clean-publish": "^4.2.0",
-    "eslint": "^8.38.0",
+    "eslint": "^8.39.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
