@@ -56,7 +56,7 @@ lib.on<Events>('set', 'prop', 1)
 4. Run `npx check-dts` to test the new file.
 5. Create `test/index.errors.ts` for negative tests and add an incorrect usage
    of your library recording to TypeScript. See the next section for details.
-6. Run `npx check-dts` to test both files.
+6. Run `npx check-dts test/*.ts` to test both files.
 7. Add `check-dts` to `npm test` to test types on CI:
 
    ```diff
