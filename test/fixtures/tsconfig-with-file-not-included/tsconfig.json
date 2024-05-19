@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "ESNext",
+    "lib": [
+      "ES2020.Promise"
+    ],
+    "rootDir": "./src",
+  },
+  "include": ["./src"]
+}
