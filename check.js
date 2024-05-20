@@ -115,7 +115,7 @@ export async function check(
       let message = error.messageText.messageText;
       // To support snapshot tests, remove absolute paths that would vary between machines.
       if (IS_TEST) {
-        message = message.replaceAll(process.cwd(), '$CWD')
+        message = message.replaceAll(process.cwd(), '.')
       }
       push(error, message);
       continue
