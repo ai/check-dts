@@ -20,7 +20,6 @@ const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
 const WORKER = join(ROOT, 'worker.js')
 const PREFIX = '// THROWS '
-const IS_TEST = process.env.NODE_ENV === 'test';
 
 function checkFiles(files, compilerOptions) {
   return new Promise((resolve, reject) => {
@@ -112,11 +111,8 @@ export async function check(
 
     // istanbul ignore next
     if (!error.file) {
-      let message = error.messageText.messageText;
       // To support snapshot tests, remove absolute paths that would vary between machines.
-      if (IS_TEST) {
-        message = message.replaceAll(process.cwd(), '.')
-      }
+      let message = error.messageText.messageText.replaceAll(process.cwd(), '.')
       push(error, message);
       continue
     }
