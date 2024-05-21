@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.0
+* Fixed reporting errors not associated with a file (by @nawatts).
+* Removed Node.js 14 and Node.js 16 support.
+
 ## 0.7.2
 * Fix rare TypeScript errors support (by Brian Takita).
 
