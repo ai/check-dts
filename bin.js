@@ -2,9 +2,9 @@
 
 import pico from 'picocolors'
 
-import { showVersion } from './show-version.js'
-import { showHelp } from './show-help.js'
 import { check } from './check.js'
+import { showHelp } from './show-help.js'
+import { showVersion } from './show-version.js'
 
 function error(message) {
   process.stderr.write(pico.red(message) + '\n')

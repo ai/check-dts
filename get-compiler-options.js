@@ -2,18 +2,18 @@ import ts from 'typescript'
 
 const DEFAULT_OPTIONS = ts.convertCompilerOptionsFromJson(
   {
-    allowSyntheticDefaultImports: true,
-    strictFunctionTypes: false,
-    noUnusedParameters: true,
-    noImplicitReturns: true,
-    moduleResolution: 'NodeJs',
-    noUnusedLocals: true,
-    stripInternal: true,
     allowJs: true,
+    allowSyntheticDefaultImports: true,
+    jsx: 'react',
     module: 'esnext',
-    strict: true,
+    moduleResolution: 'NodeJs',
     noEmit: true,
-    jsx: 'react'
+    noImplicitReturns: true,
+    noUnusedLocals: true,
+    noUnusedParameters: true,
+    strict: true,
+    strictFunctionTypes: false,
+    stripInternal: true
   },
   './'
 ).options

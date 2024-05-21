@@ -1,8 +1,9 @@
-import { fileURLToPath } from 'url'
-import { join, dirname } from 'path'
-import { jest } from '@jest/globals'
-
 import './fixtures/ci.js'
+
+import { jest } from '@jest/globals'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import { check } from '../check.js'
 
 const ROOT = dirname(fileURLToPath(import.meta.url))

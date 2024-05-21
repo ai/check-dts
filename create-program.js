@@ -1,6 +1,6 @@
+import { createRequire } from 'node:module'
+import { dirname, join } from 'node:path'
 import ts from 'typescript'
-import { createRequire } from 'module'
-import { dirname, join } from 'path'
 
 let require = createRequire(import.meta.url)
 

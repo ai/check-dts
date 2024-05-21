@@ -1,16 +1,16 @@
-import { parentPort, workerData } from 'worker_threads'
+import { parentPort, workerData } from 'node:worker_threads'
 
 import { createProgram } from './create-program.js'
 
-let { files, compilerOptions } = workerData
+let { compilerOptions, files } = workerData
 
 let errors = createProgram(files, compilerOptions)
 let cleaned = errors.map(error => {
   let cleanedError = {
-    messageText: error.messageText,
+    code: error.code,
     fileName: error.fileName,
-    start: error.start,
-    code: error.code
+    messageText: error.messageText,
+    start: error.start
   }
   if (error.file) {
     cleanedError.file = {

@@ -1,12 +1,12 @@
-import { dirname, basename, join, relative } from 'path'
-import { promises as fs } from 'fs'
-import { createRequire } from 'module'
-import { fileURLToPath } from 'url'
-import { createSpinner } from 'nanospinner'
-import { location } from 'vfile-location'
-import { Worker } from 'worker_threads'
-import pico from 'picocolors'
 import glob from 'fast-glob'
+import { createSpinner } from 'nanospinner'
+import { promises as fs } from 'node:fs'
+import { createRequire } from 'node:module'
+import { basename, dirname, join, relative } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { Worker } from 'node:worker_threads'
+import pico from 'picocolors'
+import { location } from 'vfile-location'
 
 import { getCompilerOptions } from './get-compiler-options.js'
 
@@ -24,7 +24,7 @@ const PREFIX = '// THROWS '
 function checkFiles(files, compilerOptions) {
   return new Promise((resolve, reject) => {
     let worker = new Worker(WORKER, {
-      workerData: { files, compilerOptions }
+      workerData: { compilerOptions, files }
     })
     worker.on('message', resolve)
     worker.on('error', reject)
@@ -57,8 +57,8 @@ async function parseTest(files) {
         if (newline !== -1) newline += pos
 
         let pattern = source.slice(pos + PREFIX.length, newline)
-        let { line, column } = lines.toPoint(pos)
-        expects.push({ fileName, line: line + 1, column, pattern })
+        let { column, line } = lines.toPoint(pos)
+        expects.push({ column, fileName, line: line + 1, pattern })
         prev = pos
       }
     })
@@ -77,7 +77,7 @@ export async function check(
 
   let compilerOptions = getCompilerOptions(cwd)
 
-  let all = await glob(globs, { cwd, ignore: ['node_modules'], absolute: true })
+  let all = await glob(globs, { absolute: true, cwd, ignore: ['node_modules'] })
 
   if (!all.some(i => /\.tsx?$/.test(i))) {
     let err = new Error(
@@ -117,7 +117,7 @@ export async function check(
       continue
     }
 
-    let { line, column } = location(error.file.text).toPoint(error.start)
+    let { column, line } = location(error.file.text).toPoint(error.start)
     let expect = expects.find(j => {
       return error.file.fileName === j.fileName && line === j.line && !j.used
     })
