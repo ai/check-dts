@@ -13,6 +13,12 @@
   "engines": {
     "node": ">=18.0.0"
   },
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/ai"
+    }
+  ],
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage && eslint ."
   },
