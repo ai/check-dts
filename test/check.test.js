@@ -66,6 +66,10 @@ it('accepts files', async () => {
   expect(await good('negative', 'b.*')).toMatchSnapshot()
 })
 
+it('shows errors not associated with a file', async () => {
+  expect(await bad('tsconfig-with-file-not-included')).toMatchSnapshot()
+})
+
 it('warns about empty project', async () => {
   let error
   try {

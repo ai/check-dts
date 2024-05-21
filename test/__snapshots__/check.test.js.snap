@@ -98,6 +98,15 @@ exports[`loads custom tsconfig.json with extends property 1`] = `
 "
 `;
 
+exports[`shows errors not associated with a file 1`] = `
+"[33m-[39m Check types
+[31m✖[39m Check types
+
+File './test/fixtures/tsconfig-with-file-not-included/tool.config.ts' is not under 'rootDir' './test/fixtures/tsconfig-with-file-not-included/src'. 'rootDir' is expected to contain all source files.
+
+"
+`;
+
 exports[`supports simple cases 1`] = `
 "[33m-[39m Check types
 [32m✔[39m Check types

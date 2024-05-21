@@ -111,7 +111,9 @@ export async function check(
 
     // istanbul ignore next
     if (!error.file) {
-      push(error)
+      // To support snapshot tests, remove absolute paths that would vary between machines.
+      let message = error.messageText.messageText.replaceAll(process.cwd(), '.')
+      push(error, message);
       continue
     }
 
