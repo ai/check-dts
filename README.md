@@ -166,3 +166,18 @@ You can skip the whole `node_modules` by adding to `tsconfig.json`:
   }
 }
 ```
+
+### Checking the type of the return value
+
+To check the return value of a library, simply set the type to the variable in your `index.d.ts`:
+
+```ts
+const test: string = await myFunction();
+```
+
+If the variable only returns a string a never a number, then this will fail:
+
+```ts
+// FAILS
+const test: number = await myFunction();
+```
