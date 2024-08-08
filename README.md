@@ -175,7 +175,7 @@ To check the return value of a library, simply set the type to the variable in y
 const test: string = await myFunction();
 ```
 
-If the variable only returns a string a never a number, then this will fail:
+If the function only returns a string a never a number, then this will fail:
 
 ```ts
 // FAILS
