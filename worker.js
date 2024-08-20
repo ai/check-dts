@@ -13,7 +13,10 @@ let cleaned = errors.map(error => {
     start: error.start
   }
   if (typeof cleanedError.messageText !== 'string') {
-    cleanedError.messageText = cleanedError.messageText.messageText
+    cleanedError.messageText = {
+      code: cleanedError.messageText.code,
+      messageText: cleanedError.messageText.messageText
+    }
   }
   if (error.file) {
     cleanedError.file = {

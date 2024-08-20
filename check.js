@@ -116,10 +116,7 @@ export async function check(
 
       // istanbul ignore next
       if (!error.file) {
-        let message = error.messageText.messageText.replaceAll(
-          process.cwd(),
-          '.'
-        )
+        let message = getText(error).replaceAll(process.cwd(), '.')
         push(error, message)
         continue
       }
