@@ -48,7 +48,7 @@ async function parseTest(files) {
   await Promise.all(
     files.map(async fileName => {
       let source = (await fs.readFile(fileName)).toString()
-      let prev, pos
+      let pos, prev
       let lines = location(source)
       while (true) {
         pos = source.indexOf(PREFIX, prev + 1)
