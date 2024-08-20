@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.1
+* Fixed `undefined` error message on non-string errors from TS.
+* Fix CLI output on error during TS check.
+
 ## 0.8.0
 * Fixed reporting errors not associated with a file (by @nawatts).
 * Removed Node.js 14 and Node.js 16 support.
