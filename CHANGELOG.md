@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8.2
+* Fixed regression.
+
 ## 0.8.1
 * Fixed `undefined` error message on non-string errors from TS.
 * Fix CLI output on error during TS check.
