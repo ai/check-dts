@@ -9,7 +9,7 @@ let cleaned = errors.map(error => {
   let cleanedError = {
     code: error.code,
     fileName: error.fileName,
-    messageText: error.messageText,
+    messageText: String(error.messageText),
     start: error.start
   }
   if (error.file) {
