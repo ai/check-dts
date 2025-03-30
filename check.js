@@ -174,7 +174,9 @@ export async function check(
         let messages = (bad[file] || []).sort((msg1, msg2) => {
           let match1 = msg1.match(/(\d+):/)
           let match2 = msg2.match(/(\d+):/)
+          // istanbul ignore next
           if (!match1) return -1
+          // istanbul ignore next
           if (!match2) return 1
           let line1 = parseInt(msg1.match(/(\d+):/)[1])
           let line2 = parseInt(msg2.match(/(\d+):/)[1])
