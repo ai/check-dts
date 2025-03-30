@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.9.0
+* Use files list from TypeScript instead of taking everything.
+
 ## 0.8.2
 * Fixed regression.
 
