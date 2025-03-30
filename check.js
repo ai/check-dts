@@ -172,6 +172,10 @@ export async function check(
       print('')
       for (let file in bad) {
         let messages = (bad[file] || []).sort((msg1, msg2) => {
+          let match1 = msg1.match(/(\d+):/)
+          let match2 = msg2.match(/(\d+):/)
+          if (!match1) return -1
+          if (!match2) return 1
           let line1 = parseInt(msg1.match(/(\d+):/)[1])
           let line2 = parseInt(msg2.match(/(\d+):/)[1])
           return line1 - line2
