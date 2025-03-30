@@ -8,8 +8,6 @@ import { Worker } from 'node:worker_threads'
 import pico from 'picocolors'
 import { location } from 'vfile-location'
 
-import { getCompilerOptions } from './get-compiler-options.js'
-
 let require = createRequire(import.meta.url)
 
 let r = pico.red
@@ -20,6 +18,40 @@ const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
 const WORKER = join(ROOT, 'worker.js')
 const PREFIX = '// THROWS '
+
+import ts from 'typescript'
+
+const DEFAULT_OPTIONS = ts.convertCompilerOptionsFromJson(
+  {
+    allowJs: true,
+    allowSyntheticDefaultImports: true,
+    jsx: 'react',
+    module: 'esnext',
+    moduleResolution: 'NodeJs',
+    noEmit: true,
+    noImplicitReturns: true,
+    noUnusedLocals: true,
+    noUnusedParameters: true,
+    strict: true,
+    strictFunctionTypes: false,
+    stripInternal: true
+  },
+  './'
+)
+
+export function getConfig(cwd, configName = 'tsconfig.json') {
+  let configFileName = ts.findConfigFile(cwd, ts.sys.fileExists, configName)
+  if (configFileName === undefined) {
+    return DEFAULT_OPTIONS
+  }
+  let configFile = ts.readConfigFile(configFileName, ts.sys.readFile)
+  let parsedCommandLine = ts.parseJsonConfigFileContent(
+    configFile.config,
+    ts.sys,
+    cwd
+  )
+  return parsedCommandLine
+}
 
 function checkFiles(files, compilerOptions) {
   return new Promise((resolve, reject) => {
@@ -76,13 +108,23 @@ export async function check(
   spinner.start()
 
   try {
-    let compilerOptions = getCompilerOptions(cwd)
-
-    let all = await glob(globs, {
-      absolute: true,
-      cwd,
-      ignore: ['node_modules']
-    })
+    let config = getConfig(cwd)
+    let all
+    if (config.fileNames) {
+      all = config.fileNames.concat(
+        await glob('**/errors.ts', {
+          absolute: true,
+          cwd,
+          ignore: ['node_modules']
+        })
+      )
+    } else {
+      all = await glob(globs, {
+        absolute: true,
+        cwd,
+        ignore: ['node_modules']
+      })
+    }
 
     if (!all.some(i => /\.tsx?$/.test(i))) {
       let err = new Error(
@@ -100,7 +142,7 @@ export async function check(
     all.push(join(TS_DIR, 'lib.es2018.d.ts'))
 
     let expects = await parseTest(failTests)
-    let errors = await checkFiles(all, compilerOptions)
+    let errors = await checkFiles(all, config.options)
 
     let bad = {}
     function push(file, message) {
@@ -111,6 +153,7 @@ export async function check(
     for (let error of errors) {
       if (error.messageText.code === 6504 || error.messageText.code === 6054) {
         // Unsupported files
+        // istanbul ignore next
         continue
       }
 
