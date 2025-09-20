@@ -114,14 +114,20 @@ export async function check(
         await glob('**/errors.ts', {
           absolute: true,
           cwd,
-          ignore: ['node_modules']
+          ignore: [
+            'node_modules',
+             ...config.exclude
+          ]
         })
       )
     } else {
       all = await glob(globs, {
         absolute: true,
         cwd,
-        ignore: ['node_modules']
+        ignore: [
+          'node_modules',
+          ...config.exclude
+        ]    
       })
     }
 
