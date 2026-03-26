@@ -1,3 +1,1 @@
-declare function a (str: string, index: number): string
-
-export = a
+export function a(str: string, index: number): string

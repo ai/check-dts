@@ -1,4 +1,4 @@
-module.exports = function () {
+export function a() {
   let emitter = {
     events: {}
   }

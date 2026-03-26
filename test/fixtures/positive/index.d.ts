@@ -1,3 +1,1 @@
-declare function index (str: string, index: number): string
-
-export = index
+export default function index(str: string, index: number): string

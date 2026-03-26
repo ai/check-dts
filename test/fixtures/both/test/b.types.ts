@@ -1,12 +1,12 @@
-import b from '../b'
+import { b } from '../b.js'
 
 interface Events {
-  'set': (a: string, b: number) => void,
-  'add': (c: number) => void,
-  'tick': () => void
+  set: (a: string, b: number) => void
+  add: (c: number) => void
+  tick: () => void
 }
 
-function fn (a: string) {
+function fn(a: string) {
   console.log(a)
 }
 
@@ -20,7 +20,7 @@ ee.emit('add', 2)
 ee.emit('tick')
 
 ee.events = {
-  'set': [
+  set: [
     a => {
       fn(a)
     }

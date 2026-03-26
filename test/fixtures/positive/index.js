@@ -1,3 +1,3 @@
-module.export = function (str, index) {
-  return str.slice(index, index + 1)
+export default function index(str, i) {
+  return str.slice(i, i + 1)
 }

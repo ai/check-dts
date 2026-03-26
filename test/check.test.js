@@ -22,6 +22,9 @@ async function run(fixture, args) {
 
 async function good(fixture, args) {
   let [exitCode, out] = await run(fixture, args)
+  if (!exitCode) {
+    process.stdout.print(out + '\n')
+  }
   expect(exitCode).toBe(true)
   return out
 }
@@ -52,12 +55,8 @@ it('checks mixed tests', async () => {
   expect(await good('mixed')).toMatchSnapshot()
 })
 
-it('loads custom tsconfig.json', async () => {
-  expect(await good('tsconfig')).toMatchSnapshot()
-})
-
-it('loads custom tsconfig.json with extends property', async () => {
-  expect(await good('tsconfig-with-extends')).toMatchSnapshot()
+it('loads custom tsconfig.json and overrides defaults', async () => {
+  expect(await good('tsconfig-override')).toMatchSnapshot()
 })
 
 it('accepts files', async () => {

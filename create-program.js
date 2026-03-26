@@ -7,7 +7,7 @@ let require = createRequire(import.meta.url)
 const TS_DIR = dirname(require.resolve('typescript'))
 
 export function createProgram(files, options) {
-  options.moduleResolution = ts.ModuleResolutionKind.NodeJs
+  options.moduleResolution = ts.ModuleResolutionKind.NodeNext
 
   if (options.lib) {
     for (let path of options.lib) {

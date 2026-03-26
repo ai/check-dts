@@ -1,0 +1,8 @@
+{
+  // tsconfig should support comments
+  "compilerOptions": {
+    "strict": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext"
+  } // tsconfig should support trailing commas
+}

@@ -1,4 +1,4 @@
-import a from '.'
+import { a } from './index.js'
 
 // THROWS type 'string' is not assignable to parameter of type 'number'.
 a('abc', '1')

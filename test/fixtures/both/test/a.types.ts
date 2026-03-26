@@ -1,3 +1,3 @@
-import a from '../a'
+import { a } from '../a.js'
 
 a('abc', '1')

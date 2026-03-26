@@ -1,8 +1,8 @@
-import b from '../b'
+import { b } from '../b.js'
 
 interface Events {
-  'set': (a: string, b: number) => void,
-  'tick': () => void
+  set: (a: string, b: number) => void
+  tick: () => void
 }
 let typed = b<Events>()
 // THROWS Wrong
@@ -15,7 +15,7 @@ typed.emit('tick', 1)
 typed.emit('unknown')
 
 typed.events = {
-  'set': [
+  set: [
     // THROWS is not assignable to type
     (b: number) => b
   ]

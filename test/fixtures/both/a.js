@@ -1,3 +1,3 @@
-module.export = function (str, index) {
+export function a(str, index) {
   return str.slice(index, index + 1)
 }
