@@ -1,4 +1,3 @@
-import glob from 'fast-glob'
 import { createSpinner } from 'nanospinner'
 import { promises as fs } from 'node:fs'
 import { createRequire } from 'node:module'
@@ -6,6 +5,7 @@ import { basename, dirname, join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { Worker } from 'node:worker_threads'
 import pico from 'picocolors'
+import { glob } from 'tinyglobby'
 import ts from 'typescript'
 import { location } from 'vfile-location'
 
