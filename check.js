@@ -2,7 +2,6 @@ import { createSpinner } from 'nanospinner'
 import { promises as fs } from 'node:fs'
 import { createRequire } from 'node:module'
 import { basename, dirname, join, relative } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { Worker } from 'node:worker_threads'
 import pico from 'picocolors'
 import { glob } from 'tinyglobby'
@@ -13,9 +12,8 @@ let r = pico.red
 let b = pico.bold
 let g = pico.green
 
-const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
-const WORKER = join(ROOT, 'worker.js')
+const WORKER = join(import.meta.dirname, 'worker.js')
 const PREFIX = '// THROWS '
 
 function toPoint(text, offset) {
