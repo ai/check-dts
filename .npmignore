@@ -2,3 +2,4 @@ coverage/
 test/
 
 screenshot.png
+vitest.config.js

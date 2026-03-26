@@ -150,13 +150,13 @@ export async function check(
     }
 
     for (let error of errors) {
+      /* v8 ignore next 4 */
       if (error.messageText.code === 6504 || error.messageText.code === 6054) {
         // Unsupported files
-        // istanbul ignore next
         continue
       }
 
-      // istanbul ignore next
+      /* v8 ignore next 5 */
       if (!error.file) {
         let message = getText(error).replaceAll(process.cwd(), '.')
         push(error, message)

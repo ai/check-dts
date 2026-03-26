@@ -1,6 +1,5 @@
 import './fixtures/ci.js'
 
-import { jest } from '@jest/globals'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -32,8 +31,6 @@ async function bad(fixture, args) {
   expect(exitCode).toBe(false)
   return out
 }
-
-jest.setTimeout(20000)
 
 it('supports simple cases', async () => {
   expect(await good('simple')).toMatchSnapshot()
