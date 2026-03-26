@@ -7,7 +7,7 @@ It is useful for non-TypeScript project, which wants to provide typing
 support for TypeScript users and autocompletion for IDE and text editors.
 
 It becomes especially useful for complex types with generics, like we have
-in [Nano Events] or [Storeon].
+in [Nano Stores].
 
 ```ts
 // Negative test: test/index.errors.ts
@@ -30,15 +30,15 @@ interface Events {
 lib.on<Events>('set', 'prop', 1)
 ```
 
-[Nano Events]: https://github.com/ai/nanoevents/#typescript
-[Storeon]: https://github.com/storeon/storeon#typescript
+[Nano Stores]: https://github.com/nanostores/
 
 <img src="./screenshot.png" alt="Print Snapshots example" width="585">
 
-<a href="https://evilmartians.com/?utm_source=check-dts">
-  <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
-      alt="Sponsored by Evil Martians" width="236" height="54">
-</a>
+---
+
+<img src="https://cdn.evilmartians.com/badges/logo-no-label.svg" alt="" width="22" height="16" />  Made at <b><a href="https://evilmartians.com/devtools?utm_source=check-dts&utm_campaign=devtools-button&utm_medium=github">Evil Martians</a></b>, product consulting for <b>developer tools</b>.
+
+---
 
 ## Usage
 
