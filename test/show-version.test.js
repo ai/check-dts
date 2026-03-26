@@ -1,3 +1,5 @@
+import './fixtures/ci.js'
+
 import { showVersion } from '../show-version.js'
 
 function createStdout() {

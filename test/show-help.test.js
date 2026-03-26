@@ -1,3 +1,5 @@
+import './fixtures/ci.js'
+
 import { showHelp } from '../show-help.js'
 
 function createStdout() {
