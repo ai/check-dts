@@ -7,8 +7,6 @@ import { Worker } from 'node:worker_threads'
 import pico from 'picocolors'
 import { glob } from 'tinyglobby'
 import ts from 'typescript'
-import { location } from 'vfile-location'
-
 let require = createRequire(import.meta.url)
 
 let r = pico.red
@@ -19,6 +17,20 @@ const ROOT = dirname(fileURLToPath(import.meta.url))
 const TS_DIR = dirname(require.resolve('typescript'))
 const WORKER = join(ROOT, 'worker.js')
 const PREFIX = '// THROWS '
+
+function toPoint(text, offset) {
+  let line = 1
+  let column = 1
+  for (let i = 0; i < offset; i++) {
+    if (text[i] === '\n') {
+      line++
+      column = 1
+    } else {
+      column++
+    }
+  }
+  return { column, line }
+}
 
 const DEFAULT_OPTIONS = ts.convertCompilerOptionsFromJson(
   {
@@ -80,7 +92,6 @@ async function parseTest(files) {
     files.map(async fileName => {
       let source = (await fs.readFile(fileName)).toString()
       let pos, prev
-      let lines = location(source)
       while (true) {
         pos = source.indexOf(PREFIX, prev + 1)
         if (pos === -1) break
@@ -88,7 +99,7 @@ async function parseTest(files) {
         if (newline !== -1) newline += pos
 
         let pattern = source.slice(pos + PREFIX.length, newline)
-        let { column, line } = lines.toPoint(pos)
+        let { column, line } = toPoint(source, pos)
         expects.push({ column, fileName, line: line + 1, pattern })
         prev = pos
       }
@@ -163,7 +174,7 @@ export async function check(
         continue
       }
 
-      let { column, line } = location(error.file.text).toPoint(error.start)
+      let { column, line } = toPoint(error.file.text, error.start)
       let expect = expects.find(j => {
         return error.file.fileName === j.fileName && line === j.line && !j.used
       })

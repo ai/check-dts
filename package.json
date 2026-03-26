@@ -31,8 +31,7 @@
   "dependencies": {
     "tinyglobby": "^0.2.13",
     "nanospinner": "^1.2.2",
-    "picocolors": "^1.1.1",
-    "vfile-location": "^5.0.3"
+    "picocolors": "^1.1.1"
   },
   "devDependencies": {
     "@logux/eslint-config": "^57.1.0",
