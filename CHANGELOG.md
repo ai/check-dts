@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0
+* Fixed TypeScript 6.0 support.
+* Removed Node.js 18 and Node.js 20 support.
+* Reduced dependencies.
+
 ## 0.9.0
 * Use files list from TypeScript instead of taking everything.
 
