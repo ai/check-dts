@@ -14,7 +14,7 @@ in [Nano Stores].
 import lib = require('../')
 
 interface Events {
-  'set': (a: string, b: number) => void
+  set: (a: string, b: number) => void
 }
 // THROWS Expected 3 arguments, but got 2
 lib.on<Events>('set', 2)
@@ -25,7 +25,7 @@ lib.on<Events>('set', 2)
 import lib = require('../')
 
 interface Events {
-  'set': (a: string, b: number) => void
+  set: (a: string, b: number) => void
 }
 lib.on<Events>('set', 'prop', 1)
 ```
@@ -69,7 +69,6 @@ lib.on<Events>('set', 'prop', 1)
 8. If your library requires an additional TypeScript option, you can define it
    for tests in `tsconfig.json`.
 
-
 ## Writing Negative Test
 
 Add code where you expect TypeScript to report an error. Make sure to add a
@@ -110,7 +109,6 @@ $ npx check-dts
   Got: Expected 3 arguments, but got 2.
 ```
 
-
 ## CLI Options
 
 Test all `.ts` and `.js` files in project and run `*.types.ts` and `*.errors.ts`
@@ -127,7 +125,6 @@ npx check-dts **/*.tsx?
 npx check-dts **/*.ts !**/index.ts
 ```
 
-
 ## FAQ
 
 ### It seems that check-dts ignores all d.ts-files. How can I fix this?
@@ -135,7 +132,6 @@ npx check-dts **/*.ts !**/index.ts
 Please make sure that your tsconfig.json doesn’t include `skipLibCheck: true`.
 Becuase with this [option](https://www.typescriptlang.org/tsconfig#skipLibCheck)
 all `d.ts`-files will be ignored.
-
 
 ### Can I use check-dts as a simple validator for d.ts-files?
 
@@ -145,7 +141,6 @@ you can validate whether `d.ts`-files have some issues with the following comman
 ```sh
 npx tsc path/to/your/dts/files/**/*.d.ts --noEmit
 ```
-
 
 ### I am getting an error **from Node types**, how do I skip `node_modules`?
 
@@ -157,7 +152,6 @@ If you are getting an error that looks something like this:
 ```
 
 You can skip the whole `node_modules` by adding to `tsconfig.json`:
-
 
 ```json
 {

@@ -222,7 +222,7 @@ export async function check(
       spinner.error()
       print('')
       for (let file in bad) {
-        let messages = (bad[file] || []).sort((msg1, msg2) => {
+        let messages = (bad[file] || []).toSorted((msg1, msg2) => {
           let match1 = msg1.match(/(\d+):/)
           let match2 = msg2.match(/(\d+):/)
           // istanbul ignore next

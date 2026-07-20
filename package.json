@@ -3,54 +3,46 @@
   "version": "1.0.0",
   "description": "Unit tests for .d.ts TypeScript definitions",
   "keywords": [
-    "typescript",
-    "types",
+    "check",
     "test",
-    "check"
+    "types",
+    "typescript"
   ],
-  "bin": "./bin.js",
-  "type": "module",
-  "engines": {
-    "node": ">=22.16.0"
-  },
+  "license": "MIT",
+  "author": "Andrey Sitnik <andrey@sitnik.es>",
+  "repository": "ai/check-dts",
   "funding": [
     {
       "type": "github",
       "url": "https://github.com/sponsors/ai"
     }
   ],
+  "bin": "./bin.js",
+  "type": "module",
   "scripts": {
-    "test": "vitest run --coverage && eslint ."
+    "test:lint": "oxlint",
+    "test:coverage": "vitest run --coverage",
+    "test": "pnpm run /^test:/"
   },
-  "author": "Andrey Sitnik <andrey@sitnik.es>",
-  "license": "MIT",
-  "repository": "ai/check-dts",
+  "dependencies": {
+    "nanospinner": "^1.2.2",
+    "picocolors": "^1.1.1",
+    "tinyglobby": "^0.2.17"
+  },
+  "devDependencies": {
+    "@logux/oxc-configs": "^0.4.1",
+    "@vitest/coverage-v8": "^4.1.10",
+    "actions-up": "^1.16.0",
+    "eslint-plugin-prefer-let": "^4.2.2",
+    "oxlint": "^1.74.0",
+    "oxlint-tsgolint": "^0.25.0",
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.10"
+  },
   "peerDependencies": {
     "typescript": ">=4.0.0"
   },
-  "dependencies": {
-    "tinyglobby": "^0.2.13",
-    "nanospinner": "^1.2.2",
-    "picocolors": "^1.1.1"
-  },
-  "devDependencies": {
-    "@logux/eslint-config": "^57.1.0",
-    "@vitest/coverage-v8": "^4.1.1",
-    "actions-up": "^1.12.0",
-    "clean-publish": "^6.0.4",
-    "eslint": "^10.1.0",
-    "typescript": "^6.0.2",
-    "vitest": "^4.1.1"
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "jsxSingleQuote": false,
-    "quoteProps": "consistent",
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "none"
-  },
-  "clean-publish": {
-    "cleanDocs": true
+  "engines": {
+    "node": ">=22.16.0"
   }
 }
