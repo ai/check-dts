@@ -1,10 +1,16 @@
 import { createSpinner } from 'nanospinner'
 import { existsSync, promises as fs } from 'node:fs'
-import { basename, dirname, join, relative } from 'node:path'
+import { basename, dirname, join, relative, resolve } from 'node:path'
 import pico from 'picocolors'
-import { glob } from 'tinyglobby'
 
 import { createProgram, parseConfig } from './create-program.js'
+
+async function glob(patterns, cwd) {
+  let found = await Array.fromAsync(
+    fs.glob(patterns, { cwd, exclude: ['**/node_modules/**'] })
+  )
+  return found.map(file => resolve(cwd, file))
+}
 
 let r = pico.red
 let b = pico.bold
@@ -98,18 +104,10 @@ export async function check(
     let all
     if (userConfig) {
       all = (await parseConfig(cwd, userConfig)).concat(
-        await glob('**/errors.ts', {
-          absolute: true,
-          cwd,
-          ignore: ['node_modules']
-        })
+        await glob('**/errors.ts', cwd)
       )
     } else {
-      all = await glob(globs, {
-        absolute: true,
-        cwd,
-        ignore: ['node_modules']
-      })
+      all = await glob(globs, cwd)
     }
 
     if (!all.some(i => /\.tsx?$/.test(i))) {
