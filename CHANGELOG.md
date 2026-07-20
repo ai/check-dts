@@ -2,6 +2,11 @@
 
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 2.0.0
+
+- Moved to TypeScript 7.0.
+- Reduced dependencies.
+
 ## 1.0.0
 
 - Fixed TypeScript 6.0 support.
