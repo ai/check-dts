@@ -45,4 +45,4 @@ jobs:
       - name: Install dependencies
         run: pnpm ci
       - name: Run unit tests
-        run: pnpm bnt
+        run: pnpm vitest run
