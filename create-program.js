@@ -1,22 +1,60 @@
-import { createRequire } from 'node:module'
-import { dirname, join } from 'node:path'
-import ts from 'typescript'
+import { readFileSync } from 'node:fs'
+import { API } from 'typescript/unstable/async'
 
-let require = createRequire(import.meta.url)
-
-const TS_DIR = dirname(require.resolve('typescript'))
-
-export function createProgram(files, options) {
-  options.moduleResolution = ts.ModuleResolutionKind.NodeNext
-
-  if (options.lib) {
-    for (let path of options.lib) {
-      files.push(join(TS_DIR, path))
+function overlayFs(configPath, configText) {
+  return {
+    readFile(name) {
+      if (name === configPath) return configText
+      return undefined
     }
-    options.lib.length = 0
   }
+}
 
-  options.noEmit = true
+export async function parseConfig(cwd, configFileName) {
+  let api = new API({ cwd })
+  try {
+    let parsed = await api.parseConfigFile(configFileName)
+    return parsed.fileNames
+  } finally {
+    await api.close()
+  }
+}
 
-  return ts.getPreEmitDiagnostics(ts.createProgram(files, options))
+export async function createProgram(cwd, configPath, configText) {
+  let api = new API({ cwd, fs: overlayFs(configPath, configText) })
+  try {
+    let snapshot = await api.updateSnapshot({ openProjects: [configPath] })
+    let program = snapshot.getProjects()[0].program
+
+    let diagnostics = [
+      ...(await program.getSyntacticDiagnostics()),
+      ...(await program.getSemanticDiagnostics()),
+      ...(await program.getGlobalDiagnostics())
+    ]
+
+    let texts = new Map()
+    return diagnostics.map(diagnostic => {
+      let cleaned = {
+        code: diagnostic.code,
+        fileName: diagnostic.fileName,
+        messageText: diagnostic.text,
+        start: diagnostic.pos
+      }
+      if (diagnostic.fileName && diagnostic.fileName !== configPath) {
+        if (!texts.has(diagnostic.fileName)) {
+          texts.set(
+            diagnostic.fileName,
+            readFileSync(diagnostic.fileName, 'utf8')
+          )
+        }
+        cleaned.file = {
+          fileName: diagnostic.fileName,
+          text: texts.get(diagnostic.fileName)
+        }
+      }
+      return cleaned
+    })
+  } finally {
+    await api.close()
+  }
 }

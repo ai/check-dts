@@ -36,11 +36,11 @@
     "eslint-plugin-prefer-let": "^4.2.2",
     "oxlint": "^1.74.0",
     "oxlint-tsgolint": "^0.25.0",
-    "typescript": "^6.0.2",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
-    "typescript": ">=4.0.0"
+    "typescript": ">=7.0.0"
   },
   "engines": {
     "node": ">=22.16.0"

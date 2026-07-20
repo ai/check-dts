@@ -1,19 +1,16 @@
 import { createSpinner } from 'nanospinner'
-import { promises as fs } from 'node:fs'
-import { createRequire } from 'node:module'
+import { existsSync, promises as fs } from 'node:fs'
 import { basename, dirname, join, relative } from 'node:path'
-import { Worker } from 'node:worker_threads'
 import pico from 'picocolors'
 import { glob } from 'tinyglobby'
-import ts from 'typescript'
-let require = createRequire(import.meta.url)
+
+import { createProgram, parseConfig } from './create-program.js'
 
 let r = pico.red
 let b = pico.bold
 let g = pico.green
 
-const TS_DIR = dirname(require.resolve('typescript'))
-const WORKER = join(import.meta.dirname, 'worker.js')
+const CONFIG_NAME = 'tsconfig.check-dts.json'
 const PREFIX = '// THROWS '
 
 function toPoint(text, offset) {
@@ -30,54 +27,35 @@ function toPoint(text, offset) {
   return { column, line }
 }
 
-const DEFAULT_OPTIONS = ts.convertCompilerOptionsFromJson(
-  {
-    allowJs: true,
-    allowSyntheticDefaultImports: true,
-    jsx: 'react',
-    module: 'NodeNext',
-    moduleResolution: 'NodeNext',
-    noEmit: true,
-    noImplicitReturns: true,
-    noUnusedLocals: true,
-    noUnusedParameters: true,
-    strict: true,
-    strictFunctionTypes: false,
-    stripInternal: true
-  },
-  './'
-)
-
-export function getConfig(cwd, configName = 'tsconfig.json') {
-  let configFileName = ts.findConfigFile(cwd, ts.sys.fileExists, configName)
-  if (configFileName === undefined) {
-    return DEFAULT_OPTIONS
-  }
-  let configFile = ts.readConfigFile(configFileName, ts.sys.readFile)
-  let parsedCommandLine = ts.parseJsonConfigFileContent(
-    configFile.config,
-    ts.sys,
-    cwd
-  )
-  return parsedCommandLine
+const DEFAULT_OPTIONS = {
+  allowJs: true,
+  allowSyntheticDefaultImports: true,
+  jsx: 'react',
+  lib: ['dom', 'es2018'],
+  module: 'NodeNext',
+  moduleResolution: 'NodeNext',
+  noEmit: true,
+  noImplicitReturns: true,
+  noUnusedLocals: true,
+  noUnusedParameters: true,
+  strict: true,
+  strictFunctionTypes: false,
+  stripInternal: true
 }
 
-function checkFiles(files, compilerOptions) {
-  return new Promise((resolve, reject) => {
-    let worker = new Worker(WORKER, {
-      workerData: { compilerOptions, files }
-    })
-    worker.on('message', resolve)
-    worker.on('error', reject)
-  })
+export function findConfig(cwd, configName = 'tsconfig.json') {
+  let dir = cwd
+  while (true) {
+    let candidate = join(dir, configName)
+    if (existsSync(candidate)) return candidate
+    let parent = dirname(dir)
+    if (parent === dir) return undefined
+    dir = parent
+  }
 }
 
 function getText(error) {
-  if (typeof error.messageText === 'object') {
-    return error.messageText.messageText
-  } else {
-    return error.messageText
-  }
+  return error.messageText
 }
 
 function formatName(cwd, file, color) {
@@ -116,10 +94,10 @@ export async function check(
   spinner.start()
 
   try {
-    let config = getConfig(cwd)
+    let userConfig = findConfig(cwd)
     let all
-    if (config.fileNames) {
-      all = config.fileNames.concat(
+    if (userConfig) {
+      all = (await parseConfig(cwd, userConfig)).concat(
         await glob('**/errors.ts', {
           absolute: true,
           cwd,
@@ -146,11 +124,15 @@ export async function check(
     let typeTests = all.filter(i => /\.?(errors|types)\.tsx?/.test(i))
     let failTests = all.filter(i => /\.?errors\.tsx?$/.test(i))
 
-    all.push(join(TS_DIR, 'lib.dom.d.ts'))
-    all.push(join(TS_DIR, 'lib.es2018.d.ts'))
+    let configPath = join(cwd, CONFIG_NAME)
+    let configText = JSON.stringify(
+      userConfig
+        ? { compilerOptions: { noEmit: true }, extends: userConfig, files: all }
+        : { compilerOptions: DEFAULT_OPTIONS, files: all }
+    )
 
     let expects = await parseTest(failTests)
-    let errors = await checkFiles(all, config.options)
+    let errors = await createProgram(cwd, configPath, configText)
 
     let bad = {}
     function push(file, message) {
@@ -160,7 +142,7 @@ export async function check(
 
     for (let error of errors) {
       /* v8 ignore next 4 */
-      if (error.messageText.code === 6504 || error.messageText.code === 6054) {
+      if (error.code === 6504 || error.code === 6054) {
         // Unsupported files
         continue
       }
