@@ -28,12 +28,12 @@
     "nanospinner": "^1.2.2"
   },
   "devDependencies": {
-    "@logux/oxc-configs": "^0.4.1",
+    "@logux/oxc-configs": "^1.0.0",
     "@vitest/coverage-v8": "^4.1.10",
     "actions-up": "^1.16.0",
     "eslint-plugin-prefer-let": "^4.2.2",
-    "oxlint": "^1.74.0",
-    "oxlint-tsgolint": "^0.25.0",
+    "oxlint": "^1.76.0",
+    "oxlint-tsgolint": "^7.0.2001",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
