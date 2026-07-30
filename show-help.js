@@ -1,7 +1,7 @@
-import pico from 'picocolors'
+import { styleText } from 'node:util'
 
-let b = pico.bold
-let y = pico.yellow
+let b = text => styleText('bold', text)
+let y = text => styleText('yellow', text)
 
 export function showHelp(print) {
   print(

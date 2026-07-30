@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-import pico from 'picocolors'
+import { styleText } from 'node:util'
 
 import { check } from './check.js'
 import { showHelp } from './show-help.js'
 import { showVersion } from './show-version.js'
 
 function error(message) {
-  process.stderr.write(pico.red(message) + '\n')
+  process.stderr.write(styleText('red', message) + '\n')
 }
 
 function print(...lines) {

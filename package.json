@@ -25,8 +25,7 @@
     "test": "pnpm run /^test:/"
   },
   "dependencies": {
-    "nanospinner": "^1.2.2",
-    "picocolors": "^1.1.1"
+    "nanospinner": "^1.2.2"
   },
   "devDependencies": {
     "@logux/oxc-configs": "^0.4.1",

@@ -1,7 +1,7 @@
 import { createSpinner } from 'nanospinner'
 import { existsSync, promises as fs } from 'node:fs'
 import { basename, dirname, join, relative, resolve } from 'node:path'
-import pico from 'picocolors'
+import { styleText } from 'node:util'
 
 import { createProgram, parseConfig } from './create-program.js'
 
@@ -12,9 +12,11 @@ async function glob(patterns, cwd) {
   return found.map(file => resolve(cwd, file))
 }
 
-let r = pico.red
-let b = pico.bold
-let g = pico.green
+let r = text => styleText('red', text)
+let b = text => styleText('bold', text)
+let g = text => styleText('green', text)
+let gray = text => styleText('gray', text)
+let w = text => styleText('white', text)
 
 const CONFIG_NAME = 'tsconfig.check-dts.json'
 const PREFIX = '// THROWS '
@@ -64,8 +66,12 @@ function getText(error) {
   return error.messageText
 }
 
+// Do not nest colors: `styleText()` keeps nested reset codes before Node.js 26
 function formatName(cwd, file, color) {
-  return pico.gray(relative(cwd, file).replace(basename(file), i => color(i)))
+  let path = relative(cwd, file)
+  let base = basename(file)
+  let dir = path.slice(0, path.length - base.length)
+  return (dir === '' ? '' : gray(dir)) + color(base)
 }
 
 async function parseTest(files) {
@@ -156,15 +162,16 @@ export async function check(
       let expect = expects.find(j => {
         return error.file.fileName === j.fileName && line === j.line && !j.used
       })
-      let prefix = r(
-        `✖ ${formatName(cwd, error.file.fileName, r)}:${line}:${column}:`
-      )
+      let prefix =
+        r('✖ ') +
+        formatName(cwd, error.file.fileName, r) +
+        r(`:${line}:${column}:`)
       let text = getText(error)
       if (!failTests.includes(error.file.fileName)) {
         push(
           error.fileName,
           prefix +
-            b(' Type error ' + pico.gray(`TS${error.code}`) + '\n') +
+            b(' Type error ' + gray(`TS${error.code}`) + '\n') +
             '  ' +
             r(text)
         )
@@ -190,7 +197,9 @@ export async function check(
     for (let i of unused) {
       push(
         i.fileName,
-        r(`✖ ${formatName(cwd, i.fileName, r)}:${i.line}:${i.column}:`) +
+        r('✖ ') +
+          formatName(cwd, i.fileName, r) +
+          r(`:${i.line}:${i.column}:`) +
           b(' Error was not found\n') +
           '  ' +
           r(i.pattern)
@@ -221,7 +230,7 @@ export async function check(
     } else {
       spinner.success()
       for (let i of typeTests) {
-        print(g('✔ ') + formatName(cwd, i, pico.white))
+        print(g('✔ ') + formatName(cwd, i, w))
       }
       return true
     }
